@@ -49,7 +49,7 @@ Riece yield data
  lines(rice$Days, rice.lm2$fit, lty=1, col=3)
  rice.lm3 <- lm(Yield ~ daymin31 + I(daymin31^2)+I(daymin31^3) , data=rice)
  #check the diagnostics 
- summary(rice.lm3)
+ summary(rice.lm3) # Will print the summary of the fitted model 
  #### Predict at a new value of Days=31.1465
  
  # Create a new data set called new
