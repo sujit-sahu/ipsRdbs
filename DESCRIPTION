@@ -21,7 +21,7 @@ Imports:
     ggplot2, 
     extraDistr
 Depends:
-    R (>= 4.2.0)
+    R (>= 4.1.0)
 Suggests:
     GGally, 
     xtable,
