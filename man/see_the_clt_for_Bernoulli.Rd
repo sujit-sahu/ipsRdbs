@@ -19,6 +19,7 @@ Illustration of the CLT for samples from the Bernoulli distribution
 }
 \examples{
 see_the_clt_for_Bernoulli()
+old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2, 3))
 see_the_clt_for_Bernoulli(nsize=30)
 see_the_clt_for_Bernoulli(nsize=50)
@@ -26,5 +27,5 @@ see_the_clt_for_Bernoulli(nsize=100)
 see_the_clt_for_Bernoulli(nsize=500)
 see_the_clt_for_Bernoulli(nsize=1000)
 see_the_clt_for_Bernoulli(nsize=5000)
-par(mfrow=c(1,1))
+par(old.par)
 }

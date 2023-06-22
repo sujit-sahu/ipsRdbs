@@ -3,20 +3,7 @@
 \docType{data}
 \name{err_age}
 \alias{err_age}
-\title{Errors in guessing ages of Southampton mathematicians
- @format A data frame with 550 rows and 10 columns
-\describe{
- \item{group}{Group number of the students guessing the ages}
- \item{size}{Number of students in the group}
- \item{females}{How many female guessers were in the group}
- \item{photo}{Photograph number guessed, can take value 1 to 10.}
- \item{sex}{Gender of the photographed person.}
- \item{race}{Race of the photographed person.}
- \item{est_age}{Estimated age of the photographed person.}
- \item{tru_age}{True age of the photographed person.}
- \item{error}{The value of error, estimated age minus true age}
- \item{abs_error}{Absolute value of the error}
-}}
+\title{Errors in guessing ages of Southampton mathematicians}
 \format{
 An object of class \code{data.frame} with 550 rows and 10 columns.
 }
@@ -24,8 +11,7 @@ An object of class \code{data.frame} with 550 rows and 10 columns.
 err_age
 }
 \description{
-Errors in guessing ages of Southampton mathematicians
- @format A data frame with 550 rows and 10 columns
+@format A data frame with 550 rows and 10 columns
 \describe{
  \item{group}{Group number of the students guessing the ages}
  \item{size}{Number of students in the group}

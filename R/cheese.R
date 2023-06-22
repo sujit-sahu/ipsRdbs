@@ -1,4 +1,5 @@
 #' Testing of cheese data set  
+#' 
 #' @format A data frame with 30 rows and 5 columns
 #' \describe{
 #'  \item{Taste}{A measure of taste quality of cheese}

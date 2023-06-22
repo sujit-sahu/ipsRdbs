@@ -1,6 +1,7 @@
 #' Riece yield data 
+#' 
 #' @source \insertCite{BAL1975353;textual}{ipsRdbs}.  
-#'  @format A data frame with three columns and 68 rows:
+#' @format A data frame with three columns and 68 rows:
 #' \describe{
 #'   \item{Yield}{Yield of rice in kilograms}
 #'   \item{Days}{Number of days after flowering before harvesting}
@@ -20,6 +21,7 @@
 #'  qqnorm(rice.lm$res)
 #'  qqline(rice.lm$res)
 #'  rice.lm2 <- lm(Yield ~ daymin31 + I(daymin31^2) , data=rice)
+#'  old.par <- par(no.readonly = TRUE)
 #'  par(mfrow=c(1, 2))
 #'  plot(rice.lm2$fit, rice.lm2$res, xlab="Fitted values", ylab = "Residuals")
 #'  abline(h=0)
@@ -28,7 +30,7 @@
 #'  qqnorm(rice.lm2$res)
 #'  qqline(rice.lm2$res)
 #'  summary(rice.lm2)
-#'  par(mfrow=c(1,1))
+#'  par(old.par) # par(mfrow=c(1,1))
 #'  plot(rice$Days,  rice$Yield, xlab="Days", ylab="Yield")
 #'  lines(rice$Days, rice.lm2$fit, lty=1, col=3)
 #'  rice.lm3 <- lm(Yield ~ daymin31 + I(daymin31^2)+I(daymin31^3) , data=rice)

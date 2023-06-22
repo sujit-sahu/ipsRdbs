@@ -3,7 +3,7 @@
 \docType{data}
 \name{emissions}
 \alias{emissions}
-\title{Nitrous Oxide data}
+\title{Nitrous oxide emission data}
 \format{
 An object of class \code{data.frame} with 54 rows and 13 columns.
 }
@@ -33,7 +33,7 @@ Australian Traffic Accident Research Bureau
 emissions
 }
 \description{
-Nitrous Oxide data
+Nitrous oxide emission data
 }
 \examples{
  summary(emissions)
@@ -42,6 +42,7 @@ Nitrous Oxide data
  pairs(rawdata)
 # Fit the model on the raw scale 
 raw.lm <- lm(ADR37 ~ ADR27 + CS505  + T867 + H505, data=rawdata) 
+old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2,1))
 plot(raw.lm$fit, raw.lm$res,xlab="Fitted values",ylab="Residuals", main="Anscombe plot") 
 abline(h=0)
@@ -66,6 +67,7 @@ plot(log.lm2$fit, log.lm2$res,xlab="Fitted values",ylab="Residuals", main="Ansco
 abline(h=0)
 qqnorm(log.lm2$res,main="Normal probability plot")
 qqline(log.lm2$res)
+par(old.par)
 #####################################
 # Multicollinearity Analysis 
 ######################################

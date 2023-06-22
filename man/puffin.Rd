@@ -6,11 +6,7 @@
 \title{Puffin nesting data set. It contains data regarding 
 nesting habits of common puffin}
 \format{
-An object of class \code{data.frame} with 38 rows and 5 columns.
-}
-\source{
-\insertCite{puffindata;textual}{ipsRdbs}. 
- @format A data frame with 38 rows and 5 columns:
+A data frame with 38 rows and 5 columns:
 \describe{
   \item{Nesting_Frequency}{Number of nests}
   \item{Grass_Cover}{Percentage of area covered by grass}
@@ -18,6 +14,9 @@ An object of class \code{data.frame} with 38 rows and 5 columns.
   \item{Slope_Angle}{Slope angle in degrees}
   \item{Distance_from_Edge}{Distance of the plot from the cliff edge in meter}
 }
+}
+\source{
+\insertCite{puffindata;textual}{ipsRdbs}.
 }
 \usage{
 puffin
@@ -34,6 +33,7 @@ pairs(puffin)
 puffin$sqrtfreq <- sqrt(puffin$Nesting_Frequency)
 puff.sqlm <- lm(sqrtfreq~ Grass_Cover + Mean_Soil_Depth + Slope_Angle 
 +Distance_from_Edge, data=puffin) 
+old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2,1))
 qqnorm(puff.sqlm$res,main="Normal probability plot")
 qqline(puff.sqlm$res)
@@ -41,6 +41,7 @@ plot(puff.sqlm$fit, puff.sqlm$res,xlab="Fitted values",ylab="Residuals",
 main="Anscombe plot")
 abline(h=0)
 summary(puff.sqlm)
+par(old.par)
 #####################################
 # F test for two betas at the  same time: 
 ######################################

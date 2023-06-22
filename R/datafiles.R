@@ -31,6 +31,7 @@
 NULL
 
 #' Age and value of 50 beanie baby toys    
+#' 
 #' @source Beanie world magazine
 #'  @format A data frame with 50 rows and 3 columns:
 #' \describe{
@@ -43,8 +44,10 @@ NULL
 #'  head(beanie)
 "beanie"
 
-#' Wealth, age and region of 225 billionaires in 1992 as reported in the Fortune magazine
-#' @source Fortune magazine
+#' Wealth, age and region of 225 billionaires in 1992 as reported in the 
+#' Fortune magazine
+#' 
+#' @source Fortune magazine 1992. 
 #' @format A data frame with 225 rows and three columns:
 #' \describe{
 #'   \item{wealth}{Wealth in billions of US dollars}
@@ -101,8 +104,9 @@ NULL
 #'   for the number of bomb hits in London")
 "bombhits"
 
-#' Breaking strength of cement data   
-#'  @format A data frame with 36 rows and 3 columns:
+#' Breaking strength of cement data 
+#'   
+#' @format A data frame with 36 rows and 3 columns:
 #' \describe{
 #'  \item{strength}{Breaking strength in pounds per square inch}
 #'  \item{gauger}{Three different gauger machines which mixes cement with water}
@@ -113,6 +117,7 @@ NULL
 "cement"
 
 #' Errors in guessing ages of Southampton mathematicians
+#' 
 #'  @format A data frame with 550 rows and 10 columns
 #' \describe{
 #'  \item{group}{Group number of the students guessing the ages}
@@ -131,7 +136,9 @@ NULL
 "err_age"
 
 
-#' Service (waiting) times (in seconds)  of customers at a fast-food restaurant.    
+#' Service (waiting) times (in seconds)  of customers at a fast-food 
+#' restaurant.    
+#' 
 #'  @format A data frame with 10 rows and 2 columns:
 #' \describe{
 #'   \item{AM}{Waiting times for customers served during 9-10AM}
@@ -147,7 +154,8 @@ NULL
 "ffood"
 
 
-#' Nitrous Oxide data
+#' Nitrous oxide emission data
+#' 
 #' @source  Australian Traffic Accident Research Bureau 
 #'  @format A data frame with thirteen columns and 54 rows. 
 #' \describe{
@@ -175,6 +183,7 @@ NULL
 #'  pairs(rawdata)
 #' # Fit the model on the raw scale 
 #' raw.lm <- lm(ADR37 ~ ADR27 + CS505  + T867 + H505, data=rawdata) 
+#' old.par <- par(no.readonly = TRUE)
 #' par(mfrow=c(2,1))
 #' plot(raw.lm$fit, raw.lm$res,xlab="Fitted values",ylab="Residuals", main="Anscombe plot") 
 #' abline(h=0)
@@ -199,6 +208,7 @@ NULL
 #' abline(h=0)
 #' qqnorm(log.lm2$res,main="Normal probability plot")
 #' qqline(log.lm2$res)
+#' par(old.par)
 #' #####################################
 #' # Multicollinearity Analysis 
 #' ######################################
@@ -250,6 +260,7 @@ NULL
 
 #' Weight gain data from 68 first year students during their first 12 
 #' weeks in college    
+#' 
 #'  @format A data frame with three columns and 68 rows:
 #' \describe{
 #'   \item{student}{Student number, 1 to 68.}
@@ -268,6 +279,7 @@ NULL
 
 #' Weekly number of failures of a university computer system over a period of 
 #' two years. This is a data vector containing 104 values.  
+#' 
 #' @examples
 #'  summary(cfail)
 #'  # 95% Confidence interval 

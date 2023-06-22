@@ -1,7 +1,8 @@
 #'Body weight and length of possums (tree living furry animals who are mostly 
 #' nocturnal (marsupial) caught in 7 different regions of Australia. 
+#' 
 #' @source \insertCite{Lindenmayer1995;textual}{ipsRdbs}. 
-#'  @format A data frame with 101 rows and 3 columns:
+#' @format A data frame with 101 rows and 3 columns:
 #' \describe{
 #'   \item{Body_Weight}{Body weight in kilogram}
 #'   \item{Length}{Body length of the possum}

@@ -15,18 +15,19 @@ that R can use for color, e.g. 1, 2, "blue" etc.}
 \item{p2}{Second parameter controlling the shape of the butterfly}
 }
 \value{
-Plots a butterfly whose colour and shape are determined by the
-supplied parameters.
+No return value, called for side effects. It generates a plot
+whose colour and shape are determined by the supplied parameters.
 }
 \description{
 Draws a butterfly as in the front cover of the book
 }
 \examples{
 butterfly(color = 6)
+old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2, 2))
 butterfly(color = 6)
 butterfly(p1=5, p2=5, color=2)
 butterfly(p1=10, p2=1.5, color = "seagreen")
 butterfly(p1=20, p2=4, color = "blue")
-par(mfrow=c(1, 1))
+par(old.par) # par(mfrow=c(1, 1))
 }

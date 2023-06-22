@@ -3,12 +3,8 @@
 \docType{data}
 \name{ffood}
 \alias{ffood}
-\title{Service (waiting) times (in seconds)  of customers at a fast-food restaurant.    
- @format A data frame with 10 rows and 2 columns:
-\describe{
-  \item{AM}{Waiting times for customers served during 9-10AM}
-  \item{PM}{Waiting times for customers served during 2-3PM}
-}}
+\title{Service (waiting) times (in seconds)  of customers at a fast-food 
+restaurant.}
 \format{
 An object of class \code{data.frame} with 10 rows and 2 columns.
 }
@@ -16,8 +12,7 @@ An object of class \code{data.frame} with 10 rows and 2 columns.
 ffood
 }
 \description{
-Service (waiting) times (in seconds)  of customers at a fast-food restaurant.    
- @format A data frame with 10 rows and 2 columns:
+@format A data frame with 10 rows and 2 columns:
 \describe{
   \item{AM}{Waiting times for customers served during 9-10AM}
   \item{PM}{Waiting times for customers served during 2-3PM}

@@ -6,16 +6,15 @@
 \title{Body fat percentage data for 102 elite male athletes  training at the 
 Australian Institute of Sport.}
 \format{
-An object of class \code{data.frame} with 102 rows and 2 columns.
-}
-\source{
-Data collected by Dr R. Telford who was working for 
-the Australian Institute of Sport (AIS)
- @format A data frame with 102 rows and two columns:
+A data frame with 102 rows and two columns:
 \describe{
   \item{Skinfold}{Skin-fold thicknesses measured using calipers}
    \item{Bodyfat}{Percentage of fat content in the body}
 }
+}
+\source{
+Data collected by Dr R. Telford who was working for 
+the Australian Institute of Sport (AIS)
 }
 \usage{
 bodyfat
@@ -29,6 +28,7 @@ Australian Institute of Sport.
 plot(bodyfat$Skinfold,  bodyfat$Bodyfat, xlab="Skin", ylab="Fat")
 plot(bodyfat$Skinfold,  log(bodyfat$Bodyfat), xlab="Skin", ylab="log Fat")
 plot(log(bodyfat$Skinfold),  log(bodyfat$Bodyfat), xlab="log Skin", ylab="log Fat")
+old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2,2)) # draws four plots in a graph
 plot(bodyfat$Skinfold,  bodyfat$Bodyfat, xlab="Skin", ylab="Fat")
 plot(bodyfat$Skinfold,  log(bodyfat$Bodyfat), xlab="Skin", ylab="log Fat")
@@ -75,7 +75,7 @@ title("Scatter plot with the fitted Linear Regression line")
 # To test H0: beta1 = 1. 
 tstat <- (0.88225 -1)/0.02479 
 pval <- 2 * (1- pt(abs(tstat), df=100))
-par(mfrow=c(1,1))
+par(old.par)
 x <- seq(from=-5, to=5, length=500)
 y <- dt(x, df=100)
 plot(x, y,  xlab="", ylab="", type="l")
@@ -105,7 +105,7 @@ a
 #prediction intervals for the mean 
 pred.bfat.clim <- predict(bfat.lm, data=bodyfat, interval="confidence")
 #prediction intervals for future observation
-pred.bfat.plim <- predict(bfat.lm, data=bodyfat, interval="prediction")
+pred.bfat.plim <- suppressWarnings(predict(bfat.lm, data=bodyfat, interval="prediction"))
 plot(bodyfat$logskin,  bodyfat$logbfat, xlab="log Skin", ylab="log Fat")
 abline(bfat.lm, col=5)
 lines(log(bodyfat$Skinfold), pred.bfat.clim[,2], lty=2, col=2) 

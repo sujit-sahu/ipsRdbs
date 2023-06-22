@@ -1,12 +1,18 @@
 #' Illustration of the central limit theorem for sampling from the 
 #' uniform distribution
+#' 
 #' @param  nsize Sample size, n. Its default value is 10. 
 #' @param  nrep Number of replications. How many samples of size \code{nsize} 
 #' should be taken, default value is 10000.     
-#' @return  A vector of means of the replicated samples.  
-#' The function also illustrates using a graph. 
+#' @return  A vector of means of the replicated samples.  The function also 
+#' has the side effect of drawing a histogram of the sample means and 
+#' two superimposed density functions: one estimated from the data using 
+#' the \code{density} function and the other is the density of the CLT 
+#' approximated normal distribution. The better the CLT approximation, the 
+#' closer are the two superimposed densities. 
 #' @examples
 #'  see_the_clt_for_uniform()
+#' old.par <- par(no.readonly = TRUE) 
 #' par(mfrow=c(2, 3))
 #' a1 <- see_the_clt_for_uniform(nsize=1)
 #' a2 <- see_the_clt_for_uniform(nsize=2)
@@ -14,7 +20,7 @@
 #' a4 <- see_the_clt_for_uniform(nsize=10)
 #' a5 <- see_the_clt_for_uniform(nsize=20)
 #' a6 <- see_the_clt_for_uniform(nsize=50)
-#' par(mfrow=c(1, 1))
+#' par(old.par)
 #' 
 #' @export
 see_the_clt_for_uniform <- function(nsize = 10, nrep=10000) {
@@ -50,6 +56,7 @@ see_the_clt_for_uniform <- function(nsize = 10, nrep=10000) {
 #' @inheritParams see_the_clt_for_uniform
 #' @param prob True probability of success for the Bernoulli trials 
 #' @examples see_the_clt_for_Bernoulli()
+#' old.par <- par(no.readonly = TRUE)
 #' par(mfrow=c(2, 3))
 #' see_the_clt_for_Bernoulli(nsize=30)
 #' see_the_clt_for_Bernoulli(nsize=50)
@@ -57,7 +64,7 @@ see_the_clt_for_uniform <- function(nsize = 10, nrep=10000) {
 #' see_the_clt_for_Bernoulli(nsize=500)
 #' see_the_clt_for_Bernoulli(nsize=1000)
 #' see_the_clt_for_Bernoulli(nsize=5000)
-#' par(mfrow=c(1,1))
+#' par(old.par)
 #' @export
 see_the_clt_for_Bernoulli <- function(nsize = 10, nrep=10000, prob=0.8) {
   

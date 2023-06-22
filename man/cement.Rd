@@ -3,27 +3,20 @@
 \docType{data}
 \name{cement}
 \alias{cement}
-\title{Breaking strength of cement data   
- @format A data frame with 36 rows and 3 columns:
+\title{Breaking strength of cement data}
+\format{
+A data frame with 36 rows and 3 columns:
 \describe{
  \item{strength}{Breaking strength in pounds per square inch}
  \item{gauger}{Three different gauger machines which mixes cement with water}
  \item{breaker}{Three different breakers breaking the cement cubes}
-}}
-\format{
-An object of class \code{data.frame} with 37 rows and 3 columns.
+}
 }
 \usage{
 cement
 }
 \description{
-Breaking strength of cement data   
- @format A data frame with 36 rows and 3 columns:
-\describe{
- \item{strength}{Breaking strength in pounds per square inch}
- \item{gauger}{Three different gauger machines which mixes cement with water}
- \item{breaker}{Three different breakers breaking the cement cubes}
-}
+Breaking strength of cement data
 }
 \examples{
  summary(cement)

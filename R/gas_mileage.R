@@ -1,4 +1,5 @@
 #' Gas mileage of four models of car   
+#' 
 #' @format A data frame with two columns and eleven rows:
 #' \describe{
 #'   \item{mileage}{Mileage obtained}

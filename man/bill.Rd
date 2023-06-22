@@ -3,7 +3,8 @@
 \docType{data}
 \name{bill}
 \alias{bill}
-\title{Wealth, age and region of 225 billionaires in 1992 as reported in the Fortune magazine}
+\title{Wealth, age and region of 225 billionaires in 1992 as reported in the 
+Fortune magazine}
 \format{
 A data frame with 225 rows and three columns:
 \describe{
@@ -13,13 +14,14 @@ A data frame with 225 rows and three columns:
 }
 }
 \source{
-Fortune magazine
+Fortune magazine 1992.
 }
 \usage{
 bill
 }
 \description{
-Wealth, age and region of 225 billionaires in 1992 as reported in the Fortune magazine
+Wealth, age and region of 225 billionaires in 1992 as reported in the 
+Fortune magazine
 }
 \examples{
 head(bill)

@@ -10,6 +10,11 @@
 #' }
 #' @param N How many games to play, defaults to 1000. 
 #' @param print_games Logical; whether to print the results of each game. 
+#' @return No return value, called for side effects. If the supplied parameter 
+#' \code{print_games} is TRUE, then it prints out the result
+#' (Win or Loss) of each of the N simulated games. Finally it reports the 
+#' overall percentage of winning.   
+#'    
 #' ####################################################
 #' @examples
 #' # example code

@@ -19,8 +19,15 @@ monty(strat = "stay", N = 1000, print_games = TRUE)
 
 \item{N}{How many games to play, defaults to 1000.}
 
-\item{print_games}{Logical; whether to print the results of each game. 
-####################################################}
+\item{print_games}{Logical; whether to print the results of each game.}
+}
+\value{
+No return value, called for side effects. If the supplied parameter 
+\code{print_games} is TRUE, then it prints out the result
+(Win or Loss) of each of the N simulated games. Finally it reports the 
+overall percentage of winning.   
+   
+####################################################
 }
 \description{
 # Simulation of the Monty Hall Problem
