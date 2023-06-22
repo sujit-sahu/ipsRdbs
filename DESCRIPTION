@@ -1,16 +1,17 @@
 Package: ipsRdbs
 Type: Package
-Title: Introduction to Probability, Staistics and R for Data Based Sciences
-Version: 0.1
-Date: 2023-05-15
+Title: Introduction to Probability, Statistics and R for Data Based Sciences
+Version: 0.2.3
+Date: 2023-06-19
 Description: Contains data sets, programmes and illustrations 
-    discussed in the book Sahu (2023) "Introduction to Probability, 
-    Staistics and R for Data Based Sciences", published by Springer Verlag.  
+    discussed in the book, "Introduction to Probability, Statistics and R:
+    Foundations for Data-Based Sciences."  Sahu (2023, isbn:978-3-031-37864-5)
+    describes the methods in detail.
 Authors@R: c(person(given="Sujit K.", family="Sahu", email="S.K.Sahu@soton.ac.uk", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0003-2315-3598")))
 Maintainer: Sujit K. Sahu <S.K.Sahu@soton.ac.uk>
 URL: https://www.sujitsahu.com
-License: MIT + file LICENSE
+License: GPL (>= 3) | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
@@ -26,7 +27,7 @@ Suggests:
     GGally, 
     xtable,
     MASS,
-    knitr,
+    knitr, 
     rmarkdown,
     testthat,
     tidyr,
@@ -37,6 +38,4 @@ Suggests:
     BiocStyle
 LinkingTo:
 RdMacros: Rdpack
-VignetteBuilder: knitr
-Issues: https://github.com/sujit-sahu/ipsRdbs/Issues
-
+BugReports: https://github.com/sujit-sahu/ipsRdbs/issues
