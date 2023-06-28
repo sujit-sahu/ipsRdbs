@@ -36,5 +36,17 @@ a4 <- see_the_clt_for_uniform(nsize=10)
 a5 <- see_the_clt_for_uniform(nsize=20)
 a6 <- see_the_clt_for_uniform(nsize=50)
 par(old.par)
+ybars <- see_the_clt_for_uniform(nsize=12)
+zbars <- (ybars - mean(ybars))/sd(ybars)
+k <- 100
+u <- seq(from=min(zbars), to= max(zbars), length=k)
+ecdf <-  rep(NA, k)
+for(i in 1:k) ecdf[i] <- length(zbars[zbars<u[i]])/length(zbars)
+tcdf <- pnorm(u)
+plot(u, tcdf, type="l", col="red", lwd=4, xlab="", ylab="cdf")
+lines(u, ecdf, lty=2, col="darkgreen", lwd=4)
+symb <- c("cdf of sample means", "cdf of N(0, 1)")
+legend(x=-3.5, y=0.4, legend = symb, lty = c(2, 1), 
+col = c("darkgreen","red"), bty="n")
 
 }

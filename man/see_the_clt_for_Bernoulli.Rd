@@ -15,24 +15,24 @@ should be taken, default value is 10000.}
 \item{prob}{True probability of success for the Bernoulli trials}
 }
 \value{
-The function does not return any value. It  
-has the side effect of drawing a histogram of the standardized sample means
-and a superimposed density function of the standard normal distribution. 
-The better the CLT approximation, the closer are the superimposed 
-density and the histogram.
+A vector of means of the replicated samples.
+It  also has the side effect of drawing a histogram of 
+the standardized sample means and a superimposed density function 
+of the standard normal distribution. The better the CLT approximation,
+ the closer are the superimposed density and the histogram.
 }
 \description{
 Illustration of the CLT for samples from the Bernoulli distribution
 }
 \examples{
-see_the_clt_for_Bernoulli()
+a <- see_the_clt_for_Bernoulli()
 old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2, 3))
-see_the_clt_for_Bernoulli(nsize=30)
-see_the_clt_for_Bernoulli(nsize=50)
-see_the_clt_for_Bernoulli(nsize=100)
-see_the_clt_for_Bernoulli(nsize=500)
-see_the_clt_for_Bernoulli(nsize=1000)
-see_the_clt_for_Bernoulli(nsize=5000)
+a30 <- see_the_clt_for_Bernoulli(nsize=30)
+a50 <- see_the_clt_for_Bernoulli(nsize=50)
+a100 <- see_the_clt_for_Bernoulli(nsize=100)
+a500 <- see_the_clt_for_Bernoulli(nsize=500)
+a1000 <- see_the_clt_for_Bernoulli(nsize=1000)
+a5000 <- see_the_clt_for_Bernoulli(nsize=5000)
 par(old.par)
 }

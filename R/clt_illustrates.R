@@ -21,6 +21,20 @@
 #' a5 <- see_the_clt_for_uniform(nsize=20)
 #' a6 <- see_the_clt_for_uniform(nsize=50)
 #' par(old.par)
+#' ybars <- see_the_clt_for_uniform(nsize=12)
+#' zbars <- (ybars - mean(ybars))/sd(ybars)
+#' k <- 100
+#' u <- seq(from=min(zbars), to= max(zbars), length=k)
+#' ecdf <-  rep(NA, k)
+#' for(i in 1:k) ecdf[i] <- length(zbars[zbars<u[i]])/length(zbars)
+#' tcdf <- pnorm(u)
+#' plot(u, tcdf, type="l", col="red", lwd=4, xlab="", ylab="cdf")
+#' lines(u, ecdf, lty=2, col="darkgreen", lwd=4)
+#' symb <- c("cdf of sample means", "cdf of N(0, 1)")
+#' legend(x=-3.5, y=0.4, legend = symb, lty = c(2, 1), 
+#' col = c("darkgreen","red"), bty="n")
+
+
 #' 
 #' @export
 see_the_clt_for_uniform <- function(nsize = 10, nrep=10000) {
@@ -55,20 +69,21 @@ see_the_clt_for_uniform <- function(nsize = 10, nrep=10000) {
 #' 
 #' @inheritParams see_the_clt_for_uniform
 #' @param prob True probability of success for the Bernoulli trials 
-#' @return  The function does not return any value. It  
-#' has the side effect of drawing a histogram of the standardized sample means
-#' and a superimposed density function of the standard normal distribution. 
-#' The better the CLT approximation, the closer are the superimposed 
-#' density and the histogram. 
-#' @examples see_the_clt_for_Bernoulli()
+#' @return   A vector of means of the replicated samples.
+#' It  also has the side effect of drawing a histogram of 
+#' the standardized sample means and a superimposed density function 
+#' of the standard normal distribution. The better the CLT approximation,
+#'  the closer are the superimposed density and the histogram. 
+#' @examples 
+#' a <- see_the_clt_for_Bernoulli()
 #' old.par <- par(no.readonly = TRUE)
 #' par(mfrow=c(2, 3))
-#' see_the_clt_for_Bernoulli(nsize=30)
-#' see_the_clt_for_Bernoulli(nsize=50)
-#' see_the_clt_for_Bernoulli(nsize=100)
-#' see_the_clt_for_Bernoulli(nsize=500)
-#' see_the_clt_for_Bernoulli(nsize=1000)
-#' see_the_clt_for_Bernoulli(nsize=5000)
+#' a30 <- see_the_clt_for_Bernoulli(nsize=30)
+#' a50 <- see_the_clt_for_Bernoulli(nsize=50)
+#' a100 <- see_the_clt_for_Bernoulli(nsize=100)
+#' a500 <- see_the_clt_for_Bernoulli(nsize=500)
+#' a1000 <- see_the_clt_for_Bernoulli(nsize=1000)
+#' a5000 <- see_the_clt_for_Bernoulli(nsize=5000)
 #' par(old.par)
 #' @export
 see_the_clt_for_Bernoulli <- function(nsize = 10, nrep=10000, prob=0.8) {
@@ -84,9 +99,9 @@ see_the_clt_for_Bernoulli <- function(nsize = 10, nrep=10000, prob=0.8) {
   
   ## Now find mean for each column
   
-  zbar <- apply(y, 2, mean) ## 2 for columns
+  ybar <- apply(y, 2, mean) ## 2 for columns
   
-  zbar <- (zbar - mean(zbar))/sd(zbar)
+  zbar <- (ybar - mean(ybar))/sd(ybar)
   
   ## Would like to overlay a density 
   u <- seq(from=min(zbar), to= max(zbar), length=100)
@@ -106,17 +121,18 @@ see_the_clt_for_Bernoulli <- function(nsize = 10, nrep=10000, prob=0.8) {
   
   # symb <- c("data density", "CLT density")
   #legend(x=mean(zbar), y=max(v)-0.5, legend = symb, lty = c(2, 1), col = c("darkgreen","red"), bty="n")
-}
+ybar
+  }
 ###
 
-#' Illustration of the central limit theorem for sampling from the 
+#' Illustration of the weak law of large numbers  for sampling from the 
 #' uniform distribution
 #' @param  nsize Sample size, n. Its default value is 10. 
 #' @param  nrep Number of replications. How many samples of size \code{nsize} 
 #' should be taken, default value is 10000.     
-#' @return A list giving x values the density estimates y, from the generated
-#'  samples.  The function  also draws the empirical density on the current 
-#' graphics device.  
+#' @return A list giving the x values and the density estimates y, from the 
+#' generated random samples.  The function  also draws the empirical density on
+#' the  current graphics device.  
 #' @examples
 #' a1 <- see_the_wlln_for_uniform(nsize=1, nrep=50000)
 #' a2 <- see_the_wlln_for_uniform(nsize=10, nrep=50000)

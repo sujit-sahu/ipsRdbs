@@ -2,7 +2,7 @@
 % Please edit documentation in R/clt_illustrates.R
 \name{see_the_wlln_for_uniform}
 \alias{see_the_wlln_for_uniform}
-\title{Illustration of the central limit theorem for sampling from the 
+\title{Illustration of the weak law of large numbers  for sampling from the 
 uniform distribution}
 \usage{
 see_the_wlln_for_uniform(nsize = 10, nrep = 1000)
@@ -14,12 +14,12 @@ see_the_wlln_for_uniform(nsize = 10, nrep = 1000)
 should be taken, default value is 10000.}
 }
 \value{
-A list giving x values the density estimates y, from the generated
- samples.  The function  also draws the empirical density on the current 
-graphics device.
+A list giving the x values and the density estimates y, from the 
+generated random samples.  The function  also draws the empirical density on
+the  current graphics device.
 }
 \description{
-Illustration of the central limit theorem for sampling from the 
+Illustration of the weak law of large numbers  for sampling from the 
 uniform distribution
 }
 \examples{
