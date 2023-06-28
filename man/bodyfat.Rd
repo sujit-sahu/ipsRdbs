@@ -29,7 +29,7 @@ plot(bodyfat$Skinfold,  bodyfat$Bodyfat, xlab="Skin", ylab="Fat")
 plot(bodyfat$Skinfold,  log(bodyfat$Bodyfat), xlab="Skin", ylab="log Fat")
 plot(log(bodyfat$Skinfold),  log(bodyfat$Bodyfat), xlab="log Skin", ylab="log Fat")
 old.par <- par(no.readonly = TRUE)
-par(mfrow=c(2,2)) # draws four plots in a graph
+# par(mfrow=c(2,2)) # draws four plots in a graph
 plot(bodyfat$Skinfold,  bodyfat$Bodyfat, xlab="Skin", ylab="Fat")
 plot(bodyfat$Skinfold,  log(bodyfat$Bodyfat), xlab="Skin", ylab="log Fat")
 plot(log(bodyfat$Skinfold),  log(bodyfat$Bodyfat), xlab="log Skin", ylab="log Fat")
@@ -40,6 +40,19 @@ text(2, 1, "To have the best plot")
 bodyfat$logskin <- log(bodyfat$Skinfold)
 bodyfat$logbfat <- log(bodyfat$Bodyfat)
 bodyfat$logskin <- log(bodyfat$Skinfold)
+par(old.par)
+ # Create a grouped variable 
+bodyfat$cutskin <- cut(log(bodyfat$Skinfold), breaks=6) 
+boxplot(data=bodyfat, Bodyfat~cutskin, col=2:7)
+head(bodyfat)
+require(ggplot2)
+p2 <- ggplot(data=bodyfat, aes(x=cutskin, y=logbfat)) + 
+geom_boxplot(col=2:7) + 
+stat_summary(fun=mean, geom="line", aes(group=1), col="blue", linewidth=1) +
+labs(x="Skinfold", y="Percentage of log bodyfat", 
+title="Boxplot of log-bodyfat percentage vs grouped log-skinfold")  
+plot(p2)
+
 n <- nrow(bodyfat)
 x <- bodyfat$logskin
 y <- bodyfat$logbfat
@@ -75,7 +88,6 @@ title("Scatter plot with the fitted Linear Regression line")
 # To test H0: beta1 = 1. 
 tstat <- (0.88225 -1)/0.02479 
 pval <- 2 * (1- pt(abs(tstat), df=100))
-par(old.par)
 x <- seq(from=-5, to=5, length=500)
 y <- dt(x, df=100)
 plot(x, y,  xlab="", ylab="", type="l")

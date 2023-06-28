@@ -11,7 +11,7 @@
 #' approximated normal distribution. The better the CLT approximation, the 
 #' closer are the two superimposed densities. 
 #' @examples
-#'  see_the_clt_for_uniform()
+#' a <- see_the_clt_for_uniform()
 #' old.par <- par(no.readonly = TRUE) 
 #' par(mfrow=c(2, 3))
 #' a1 <- see_the_clt_for_uniform(nsize=1)
@@ -55,6 +55,11 @@ see_the_clt_for_uniform <- function(nsize = 10, nrep=10000) {
 #' 
 #' @inheritParams see_the_clt_for_uniform
 #' @param prob True probability of success for the Bernoulli trials 
+#' @return  The function does not return any value. It  
+#' has the side effect of drawing a histogram of the standardized sample means
+#' and a superimposed density function of the standard normal distribution. 
+#' The better the CLT approximation, the closer are the superimposed 
+#' density and the histogram. 
 #' @examples see_the_clt_for_Bernoulli()
 #' old.par <- par(no.readonly = TRUE)
 #' par(mfrow=c(2, 3))

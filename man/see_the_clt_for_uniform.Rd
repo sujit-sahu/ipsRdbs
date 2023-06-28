@@ -26,7 +26,7 @@ Illustration of the central limit theorem for sampling from the
 uniform distribution
 }
 \examples{
- see_the_clt_for_uniform()
+a <- see_the_clt_for_uniform()
 old.par <- par(no.readonly = TRUE) 
 par(mfrow=c(2, 3))
 a1 <- see_the_clt_for_uniform(nsize=1)

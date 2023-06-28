@@ -14,6 +14,13 @@ should be taken, default value is 10000.}
 
 \item{prob}{True probability of success for the Bernoulli trials}
 }
+\value{
+The function does not return any value. It  
+has the side effect of drawing a histogram of the standardized sample means
+and a superimposed density function of the standard normal distribution. 
+The better the CLT approximation, the closer are the superimposed 
+density and the histogram.
+}
 \description{
 Illustration of the CLT for samples from the Bernoulli distribution
 }

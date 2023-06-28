@@ -72,7 +72,7 @@ NULL
 
 
 #' Number of bomb hits in London during World War II    
-#' 
+#' @source \insertCite{bombhits;textual}{ipsRdbs}. 
 #' @format A data frame with two columns and six rows:
 #' \describe{
 #'   \item{numberhit}{The number of  bomb hits during World War II 

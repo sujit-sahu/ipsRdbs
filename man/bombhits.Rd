@@ -12,6 +12,9 @@ A data frame with two columns and six rows:
   \item{freq}{Frequency of the number of hits}
 }
 }
+\source{
+\insertCite{bombhits;textual}{ipsRdbs}.
+}
 \usage{
 bombhits
 }
