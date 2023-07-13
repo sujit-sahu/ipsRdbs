@@ -95,7 +95,7 @@ Some summary remarks are provided in Section \@ref(discussion).
 
 # Data sets
 
-## `beanie`: data set 
+## `beanie` : age and value of  beanie baby toys.
   
 This data set contains the age and the value of 50 beanie baby toys. Source: Beanie world magazine.
 ```{r, eval=TRUE}
@@ -104,7 +104,7 @@ summary(beanie)
 plot(beanie$age, beanie$value, xlab="Age", ylab="Value", pch="*", col="red")
 ```
 
-## `bill` : data set
+## `bill` :  wealth and age of world billionaires
 This data set contains wealth, age and region of 225 billionaires in 1992 as reported in the Fortune magazine. 
 
 ```{r bill, eval=TRUE}
@@ -122,7 +122,7 @@ title="Scatterplot", caption = "Source: Fortune Magazine, 1992.")
 plot(gg)
 ```
 
-## `bodyfat` : data set
+## `bodyfat` : body fat percentage and skinfold thickness of athletes 
 
 This data set contains body fat percentage data for 102 elite male athletes
 training at the Australian Institute of Sport.
@@ -236,7 +236,7 @@ summary(bfat.lm)
 anova(bfat.lm)
 ```
 
-## `bombhits`:   data set 
+## `bombhits`: number and frequency of bombhits in London 
 
 This data set contains the number of bomb hits in 576 areas in London during World War II. Data sourced from Shaw and Shaw (2019), see also Hand et al (1993). [@Handetal1993] [@bombhits]
 
@@ -265,7 +265,7 @@ This data set contains the number of bomb hits in 576 areas in London during Wor
   for the number of bomb hits in London")
 ```
 
-## `cement`: data set 
+## `cement`: breaking strength of cement   
 
 Contains data regarding breaking strength of cement. 
 ```{r, eval=TRUE}
@@ -274,13 +274,13 @@ boxplot(data=cement, strength~gauger, col=1:3)
 boxplot(data=cement, strength~breaker, col=1:3)
 ```
 
-## `cfail`: data set
+## `cfail`: number of weekly computer failures
 
 This data set contains weekly number of failures of a university computer 
 system over a period of two years. Source: Hand {\it et al.} (1993). 
 [@Handetal1993]
 
-## `cheese` : data set 
+## `cheese` : taste of cheese 
 
 This data set is from a testing of cheese experiment. 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
@@ -316,7 +316,7 @@ cheese.lm <- lm(Taste ~ AceticAcid +  LacticAcid + logH2S, data=cheese, subset=2
  cheese.pred.pred.limits
 ```
 
-## `emissions` : data set 
+## `emissions` :  Exhaust emissions of cars  
 
 Data on the nitrous oxide content of exhaust emissions from a set of 
 cars was collected by the Australian Traffic Accident Research Bureau 
@@ -400,7 +400,7 @@ validation.stat <- mean(validation.residuals^2)
 validation.stat
 ```
 
-## `err_age` : data set 
+## `err_age` : Error in guessing ages from photographs 
 
 This data set contains the errors in guessing ages of 10 Southampton 
 mathematicians. 
@@ -409,7 +409,7 @@ mathematicians.
 summary(err_age)
 ```
 
-## `ffood` : Fast food service time data set 
+## `ffood` : Service times in a fast food restaurant  
 
 Service (waiting) times (in seconds) of customers at a fast-food restaurant. Source: Unknown. 
 ```{r ffood, eval=TRUE}
@@ -421,7 +421,7 @@ summary(ffood)
  t.test(ffood$AM, ffood$PM)
 ```
 
-## `gasmileage` : data set 
+## `gasmileage` : Gas mileage of cars  
 
 This data set contains gas mileage obtained from four models of a car.
 
@@ -524,7 +524,7 @@ summary(model2)
 anova(model2)
 ```
 
-## `possum` : data set 
+## `possum` : Body weight and length of possums in Australian regions   
 
 This data set contains body weight and length of possums (tree living furry animals who are mostly nocturnal (marsupial) caught in 7 different regions of Australia.
 Source: Lindenmayer and Donnelly (1995). [@Lindenmayer1995]
@@ -628,7 +628,7 @@ Source: Lindenmayer and Donnelly (1995). [@Lindenmayer1995]
 ```
 
 
-## `puffin` : data set 
+## `puffin` : Nesting habits of puffins in Newfoundland  
 
 This object contains data regarding nesting habits of common puffin. Source: Nettleship (1972).  [@puffindata]
 
@@ -661,7 +661,7 @@ qf(0.95, 2, 33) # 3.28
 anova(puff.sqlm2, puff.sqlm)
 ```
 
-## `rice` : data set on rice yield
+## `rice` : data on rice yield
 Source:  Bal and Ojha (1975). [@BAL1975353]
 
 ```{r rice, eval=TRUE}
@@ -712,7 +712,7 @@ Source:  Bal and Ojha (1975). [@BAL1975353]
  #[1,] 3676.766 3206.461 4147.071
 ```
 
-## `wgain`: data set on weight gain of students
+## `wgain`: Weight gain of students starting college 
 
 This contains weight gain data from 68 first year students during their first 12 
 weeks in college. Source: Levitsky {\it et al} (2004). [@Levitsky2004]
