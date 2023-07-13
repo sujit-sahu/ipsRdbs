@@ -5,13 +5,7 @@
 \alias{err_age}
 \title{Errors in guessing ages of Southampton mathematicians}
 \format{
-An object of class \code{data.frame} with 550 rows and 10 columns.
-}
-\usage{
-err_age
-}
-\description{
-@format A data frame with 550 rows and 10 columns
+A data frame with 550 rows and 10 columns
 \describe{
  \item{group}{Group number of the students guessing the ages}
  \item{size}{Number of students in the group}
@@ -24,6 +18,12 @@ err_age
  \item{error}{The value of error, estimated age minus true age}
  \item{abs_error}{Absolute value of the error}
 }
+}
+\usage{
+err_age
+}
+\description{
+Errors in guessing ages of Southampton mathematicians
 }
 \examples{
  summary(err_age)

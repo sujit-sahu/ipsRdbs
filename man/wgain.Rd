@@ -6,18 +6,19 @@
 \title{Weight gain data from 68 first year students during their first 12 
 weeks in college}
 \format{
-An object of class \code{data.frame} with 68 rows and 3 columns.
-}
-\usage{
-wgain
-}
-\description{
-@format A data frame with three columns and 68 rows:
+A data frame with three columns and 68 rows:
 \describe{
   \item{student}{Student number, 1 to 68.}
   \item{initial}{Initial weight in kilogram}
    \item{final}{Final weight in kilogram}
 }
+}
+\usage{
+wgain
+}
+\description{
+Weight gain data from 68 first year students during their first 12 
+weeks in college
 }
 \examples{
  summary(wgain)

@@ -6,17 +6,18 @@
 \title{Service (waiting) times (in seconds)  of customers at a fast-food 
 restaurant.}
 \format{
-An object of class \code{data.frame} with 10 rows and 2 columns.
+A data frame with 10 rows and 2 columns:
+\describe{
+  \item{AM}{Waiting times for customers served during 9-10AM}
+  \item{PM}{Waiting times for customers served during 2-3PM}
+}
 }
 \usage{
 ffood
 }
 \description{
-@format A data frame with 10 rows and 2 columns:
-\describe{
-  \item{AM}{Waiting times for customers served during 9-10AM}
-  \item{PM}{Waiting times for customers served during 2-3PM}
-}
+Service (waiting) times (in seconds)  of customers at a fast-food 
+restaurant.
 }
 \examples{
  summary(ffood)

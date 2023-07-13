@@ -1,0 +1,858 @@
+---
+title: "ipsRdbs: Introduction to Probability, Statistics and R for Data-Based Sciences"
+output: 
+   BiocStyle::html_document
+bibliography: REFERENCES.bib
+number_sections: true
+date: "`r format(Sys.Date(), format='%B %d,  %Y')`"
+author: 
+- name: Sujit K. Sahu
+  affiliation:  University of Southampton
+  email: S.K.Sahu@soton.ac.uk 
+package: ipsRdbs
+abstract: >  
+ This is a vignette for the `R` package `r  BiocStyle::CRANpkg("ipsRdbs")`. This package contains data  sets, programmes and illustrations discussed in the book,  "Introduction to Probability, Statistics and R:
+ Foundations for Data-Based Sciences."  The data sets and the methods are described in more detail in the book by Sahu (2023). 
+ <br>
+keywords: Anova, butterfly drawing, t-test, Factorial effects, Multiple Regression modelling, Simple linear regression. 
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{ipsRdbs: Introduction to Probability, Statistics and R for Data-Based Sciences}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+```{r style, echo = FALSE, results = 'asis'}
+  BiocStyle::markdown()
+```
+```{css, echo=FALSE}
+.watch-out {
+  background-color: lightpurple;
+  border: 3px solid purple;
+  font-weight: bold;
+}
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  class.source="watch-out",
+  comment = "#>")
+```
+
+```{r setup,  eval=TRUE, echo=FALSE, include=FALSE}
+library(ggplot2)
+require(ipsRdbs)
+knitr::opts_chunk$set(eval = FALSE)
+
+figpath <- system.file("figures", package = "ipsRdbs") 
+print(figpath)
+```
+
+# Introduction 
+This package complements the book, `Introduction to Probability, Statistics and R for Data-Based Sciences' by Sahu (2023). The package distributes the data sets used in the book and provides code illustrating the statistical modeling of the data sets. In addition, the package provides code for illustrating various results in probability and statistics. For example, it provides code to simulate the Monty python game illustrating conditional probability, and gives simulation based examples to illustrate the central limit theorem and the weak law of large numbers. Thus the package helps a beginner reader in enhancing understanding of a few elementary concepts in probability and statistics, and introduces them to perform linear statistical modelling, i.e., regression and ANOVA which are among the key foundational concepts of data science and machine learning, more generally data-based sciences.        
+
+```{r coverplot, eval=TRUE, echo=FALSE, fig.cap="ipsRdbs book cover", fig.width =1.5, fig.height=2.5}
+library(ipsRdbs)
+figpath <- system.file("figures", package = "ipsRdbs") 
+knitr::include_graphics(paste0(figpath, "/cover.jpg"))
+```
+
+<!-- A fuller version of this document with additional graphical illustrations 
+<a href="https://www.sujitsahu.com/bmbook/bmstdr-full_vignette.html" > is also available.  </a> -->
+
+## Installing the required software packages 
+
+The reader is first instructed to install the `R` software package by searching for `CRAN` in the internet. The reader shoud then go onto the web-page <a href="https://cran.r-project.org/"> https://cran.r-project.org/ </a> and install the correct and latest version of the package on their own computer. Please note that `R` cannot be installed on a mobile phone. 
+Once `R` has been installed, the next task is to install the frontend software package <a href="https://posit.co/download/rstudio-desktop/"> Rstudio, </a>
+which provides an easier interface to work with `R`.
+
+After installing `R` and `Rstudio`, the reader should launch the `Rstudio` programme in their computer. This will open up a four pane window with one named 'Console' or 'Terminal'. This window accepts commands (or our instructions) and prints results. For example, the reader may type 2+2 and then hit the Enter button to examine the result. The reader is asked to search the internet for gentler introductions and videos. 
+
+In order to getting started here, thereader is aked to install the add-on `R` package `ipsRdbs` simply by issuing the `R` command
+```{r echo=TRUE, eval=FALSE}
+install.packages("ipsRdbs", dependencies=TRUE)
+```
+without committing any typing mistakes.  If this installation is successful, the reader can issue the following two commands to list all `R` objects (data sets and programmes) included in the package. 
+```{r}
+library(ipsRdbs)
+ls("package:ipsRdbs")
+```
+Note that this command will only produce the intended results if only the package has been successfully installed in the first place. 
+
+## Getting to know more about the objects included in the package 
+
+All the listed objects, as the output of the `ls` command in the previous section, have associated help files. The reader can gain information for each of those object by asking for help by typing the question mark immediately followed by the object name, e.g. `?butterfly` or by issuing the command `help(butterfly)`.  
+
+The help files provide details about the objects and the user is able to run all the code included as illustrations at the end of the help file. This cam be done either by clicking the `Run Examples` link or simply by copy-pasting all the commands onto the command console in Rstudio. This is a great advantage of `R` as it allows the users to reproduce the results without having to learn all the commands and syntax correctly. After gaining this confidence, a beginner user can examine and experiment with the commands further. More details regarding the objects are provided in the book          
+[@Sahu2023].
+
+The remainder of this vignette simply elaborates the help files for a selection of the objects. Again the reader is reminded to reproduce all the results by actually running the commands and the code included in the help files.     
+
+Section \@ref(data-sets) discusses all the data sets.
+All the `R` functions are discussed in \@ref(illustrated-r-functions).  
+Some summary remarks are provided in Section \@ref(discussion). 
+
+
+
+# Data sets
+
+## `beanie`: data set 
+  
+This data set contains the age and the value of 50 beanie baby toys. Source: Beanie world magazine.
+```{r, eval=TRUE}
+head(beanie)
+summary(beanie)
+plot(beanie$age, beanie$value, xlab="Age", ylab="Value", pch="*", col="red")
+```
+
+## `bill` : data set
+This data set contains wealth, age and region of 225 billionaires in 1992 as reported in the Fortune magazine. 
+
+```{r bill, eval=TRUE}
+head(bill)
+summary(bill)
+library(ggplot2)
+gg <- ggplot2::ggplot(data=bill, aes(x=age, y=wealth)) +
+geom_point(aes(col=region, size=wealth)) +
+geom_smooth(method="loess", se=FALSE) +
+xlim(c(7, 102)) +
+ylim(c(1, 37)) +
+labs(subtitle="Wealth vs Age of Billionaires",
+y="Wealth (Billion US $)", x="Age",
+title="Scatterplot", caption = "Source: Fortune Magazine, 1992.")
+plot(gg)
+```
+
+## `bodyfat` : data set
+
+This data set contains body fat percentage data for 102 elite male athletes
+training at the Australian Institute of Sport.
+
+```{r bodyfat, eval=TRUE}
+summary(bodyfat)
+plot(bodyfat$Skinfold,  bodyfat$Bodyfat, xlab="Skin", ylab="Fat")
+plot(bodyfat$Skinfold,  log(bodyfat$Bodyfat), xlab="Skin", ylab="log Fat")
+plot(log(bodyfat$Skinfold),  log(bodyfat$Bodyfat), xlab="log Skin", ylab="log Fat")
+old.par <- par(no.readonly = TRUE)
+par(mfrow=c(2,2)) # draws four plots in a graph
+plot(bodyfat$Skinfold,  bodyfat$Bodyfat, xlab="Skin", ylab="Fat")
+plot(bodyfat$Skinfold,  log(bodyfat$Bodyfat), xlab="Skin", ylab="log Fat")
+plot(log(bodyfat$Skinfold),  log(bodyfat$Bodyfat), xlab="log Skin", ylab="log Fat")
+
+message("Log both X and Y to have the best plot")
+# Keep the transformed variables in the data set 
+bodyfat$logskin <- log(bodyfat$Skinfold)
+bodyfat$logbfat <- log(bodyfat$Bodyfat)
+bodyfat$logskin <- log(bodyfat$Skinfold)
+par(old.par)
+ # Create a grouped variable 
+bodyfat$cutskin <- cut(log(bodyfat$Skinfold), breaks=6) 
+boxplot(data=bodyfat, Bodyfat~cutskin, col=2:7)
+head(bodyfat)
+require(ggplot2)
+p2 <- ggplot(data=bodyfat, aes(x=cutskin, y=logbfat)) + 
+geom_boxplot(col=2:7) + 
+stat_summary(fun=mean, geom="line", aes(group=1), col="blue", linewidth=1) +
+labs(x="Skinfold", y="Percentage of log bodyfat", 
+title="Boxplot of log-bodyfat percentage vs grouped log-skinfold")  
+plot(p2)
+
+n <- nrow(bodyfat)
+x <- bodyfat$logskin
+y <- bodyfat$logbfat
+xbar <- mean(x)
+ybar <- mean(y)
+sx2 <- var(x)
+sy2 <- var(y)
+sxy <- cov(x, y)
+r <- cor(x, y)
+print(list(n=n, xbar=xbar, ybar=ybar, sx2=sx2, sy2=sy2, sxy=sxy, r=r))
+hatbeta1 <- r * sqrt(sy2/sx2) # calculates estimate of the slope
+hatbeta0 <- ybar - hatbeta1 * xbar # calculates estimate of the intercept
+rs <-  y - hatbeta0 - hatbeta1 * x  # calculates residuals
+s2 <- sum(rs^2)/(n-2)  # calculates estimate of sigma2
+s2
+bfat.lm <- lm(logbfat ~ logskin, data=bodyfat)
+### Check the diagnostics 
+plot(bfat.lm$fit, bfat.lm$res, xlab="Fitted values", ylab = "Residuals")
+abline(h=0)
+### Should be a random scatter
+qqnorm(bfat.lm$res)
+qqline(bfat.lm$res)
+
+# All Points should be on the straight line 
+summary(bfat.lm)
+anova(bfat.lm)
+plot(bodyfat$logskin,  bodyfat$logbfat, xlab="log Skin", ylab="log Fat")
+abline(bfat.lm, col=7)
+title("Scatter plot with the fitted Linear Regression line")
+# 95% CI for beta(1)
+# 0.88225 + c(-1, 1) * qt(0.975, df=100) *  0.02479 
+# round(0.88225 + c(-1, 1) * qt(0.975, df=100) *  0.02479, 2)
+# To test H0: beta1 = 1. 
+tstat <- (0.88225 -1)/0.02479 
+pval <- 2 * (1- pt(abs(tstat), df=100))
+x <- seq(from=-5, to=5, length=500)
+y <- dt(x, df=100)
+plot(x, y,  xlab="", ylab="", type="l")
+title("T-density with df=100")
+abline(v=abs(tstat))
+abline(h=0)
+x1 <- seq(from=abs(tstat), to=10, length=100)
+y1 <- rep(0, length=100)
+x2 <- x1
+y2 <- dt(x1, df=100)
+segments(x1, y1, x2, y2)
+abline(h=0)
+# Predict at a new value of Skinfold=70
+# Create a new data set called new
+newx <- data.frame(logskin=log(70))
+a <- predict(bfat.lm, newdata=newx, se.fit=TRUE) 
+# Confidence interval for the mean of log bodyfat  at skinfold=70
+a <- predict(bfat.lm, newdata=newx, interval="confidence") 
+# a
+#          fit      lwr     upr
+# [1,] 2.498339 2.474198 2.52248
+# Prediction interval for a future log bodyfat  at skinfold=70
+a <- predict(bfat.lm, newdata=newx, interval="prediction") 
+a
+#          fit      lwr      upr
+# [1,] 2.498339 2.333783 2.662895
+#prediction intervals for the mean 
+pred.bfat.clim <- predict(bfat.lm, data=bodyfat, interval="confidence")
+#prediction intervals for future observation
+pred.bfat.plim <- suppressWarnings(predict(bfat.lm, data=bodyfat, interval="prediction"))
+plot(bodyfat$logskin,  bodyfat$logbfat, xlab="log Skin", ylab="log Fat")
+abline(bfat.lm, col=5)
+lines(log(bodyfat$Skinfold), pred.bfat.clim[,2], lty=2, col=2) 
+lines(log(bodyfat$Skinfold), pred.bfat.clim[,3], lty=2, col=2) 
+lines(log(bodyfat$Skinfold), pred.bfat.plim[,2], lty=4, col=3) 
+lines(log(bodyfat$Skinfold), pred.bfat.plim[,3], lty=4, col=3) 
+title("Scatter plot with the fitted line and prediction intervals")
+symb <- c("Fitted line", "95% CI for mean", "95% CI for observation")
+## legend(locator(1), legend = symb, lty = c(1, 2, 4), col = c(5, 2, 3))
+# Shows where we predicted earlier 
+abline(v=log(70))
+summary(bfat.lm)
+anova(bfat.lm)
+```
+
+## `bombhits`:   data set 
+
+This data set contains the number of bomb hits in 576 areas in London during World War II. Data sourced from Shaw and Shaw (2019), see also Hand et al (1993). [@Handetal1993] [@bombhits]
+
+```{r bombhits, eval=TRUE}
+ summary(bombhits)
+ # Create a vector of data 
+ x <- c(rep(0, 229), rep(1, 211), rep(2, 93), rep(3, 35), rep(4, 7), 5)
+ y <- c(229, 211, 93, 35, 7, 1) # Frequencies 
+ rel_freq <- y/576
+ xbar <- mean(x)
+ pois_prob <- dpois(x=0:5, lambda=xbar)
+ fit_freq <- pois_prob * 576
+  #Check 
+  cbind(x=0:5, obs_freq=y, rel_freq =round(rel_freq, 4),  
+  Poisson_prob=round(pois_prob, 4), fit_freq=round(fit_freq, 1))
+  obs_freq <- y
+  xuniques <- 0:5
+  a <- data.frame(xuniques=0:5, obs_freq =y, fit_freq=fit_freq)
+  barplot(rbind(obs_freq, fit_freq), 
+  args.legend = list(x = "topright"), 
+  xlab="No of bomb hits",  
+  names.arg = xuniques,  beside=TRUE, 
+  col=c("darkblue","red"), 
+  legend =c("Observed", "Fitted"), 
+  main="Observed and Poisson distribution fitted frequencies 
+  for the number of bomb hits in London")
+```
+
+## `cement`: data set 
+
+Contains data regarding breaking strength of cement. 
+```{r, eval=TRUE}
+summary(cement)
+boxplot(data=cement, strength~gauger, col=1:3)
+boxplot(data=cement, strength~breaker, col=1:3)
+```
+
+## `cfail`: data set
+
+This data set contains weekly number of failures of a university computer 
+system over a period of two years. Source: Hand {\it et al.} (1993). 
+[@Handetal1993]
+
+## `cheese` : data set 
+
+This data set is from a testing of cheese experiment. 
+```{r, eval=TRUE, message=FALSE, warning=FALSE}
+summary(cheese)
+pairs(cheese)
+GGally::ggpairs(data=cheese)
+cheese.lm <- lm(Taste ~ AceticAcid +  LacticAcid + logH2S, data=cheese, subset=2:30)
+ # Check the diagnostics 
+ plot(cheese.lm$fit, cheese.lm$res, xlab="Fitted values", ylab = "Residuals")
+ abline(h=0)
+ # Should be a random scatter
+ qqnorm(cheese.lm$res)
+ qqline(cheese.lm$res)
+ summary(cheese.lm)
+ cheese.lm2 <- lm(Taste ~ LacticAcid + logH2S, data=cheese)
+ # Check the diagnostics 
+ plot(cheese.lm2$fit, cheese.lm2$res, xlab="Fitted values", ylab = "Residuals")
+ abline(h=0)
+ qqnorm(cheese.lm2$res)
+ qqline(cheese.lm2$res)
+ summary(cheese.lm2)
+ # How can we predict? 
+ newcheese <- data.frame(AceticAcid = 300, LacticAcid = 1.5, logH2S=4)
+ cheese.pred <- predict(cheese.lm2, newdata=newcheese, se.fit=TRUE)
+ cheese.pred
+ # Obtain confidence interval 
+ cheese.pred$fit + c(-1, 1) * qt(0.975, df=27) * cheese.pred$se.fit
+ # Using R to predict  
+ cheese.pred.conf.limits <- predict(cheese.lm2, newdata=newcheese, interval="confidence")
+ cheese.pred.conf.limits
+ # How to find prediction interval 
+ cheese.pred.pred.limits <- predict(cheese.lm2, newdata=newcheese, interval="prediction")
+ cheese.pred.pred.limits
+```
+
+## `emissions` : data set 
+
+Data on the nitrous oxide content of exhaust emissions from a set of 
+cars was collected by the Australian Traffic Accident Research Bureau 
+to explore the relationship between several measures of nitrous 
+oxide emissions.
+
+```{r emissions, eval=TRUE}
+summary(emissions)
+ 
+ rawdata <- emissions[, c(8, 4:7)]
+ pairs(rawdata)
+# Fit the model on the raw scale 
+raw.lm <- lm(ADR37 ~ ADR27 + CS505  + T867 + H505, data=rawdata) 
+old.par <- par(no.readonly = TRUE)
+par(mfrow=c(2,1))
+plot(raw.lm$fit, raw.lm$res,xlab="Fitted values",ylab="Residuals", main="Anscombe plot") 
+abline(h=0)
+qqnorm(raw.lm$res,main="Normal probability plot")
+qqline(raw.lm$res)
+# summary(raw.lm)
+logdata <- log(rawdata)
+# This only logs the values but not the column names!
+# We can use the following command to change the column names or you can use
+# fix(logdata) to do it. 
+dimnames(logdata)[[2]] <- c("logADR37", "logCS505", "logT867", "logH505", "logADR27")
+pairs(logdata)
+log.lm <- lm(logADR37 ~ logADR27 + logCS505  + logT867 + logH505, data=logdata) 
+plot(log.lm$fit, log.lm$res,xlab="Fitted values",ylab="Residuals", main="Anscombe plot") 
+abline(h=0)
+qqnorm(log.lm$res,main="Normal probability plot")
+qqline(log.lm$res)
+summary(log.lm)
+log.lm2 <- lm(logADR37 ~ logADR27 + logT867 + logH505, data=logdata) 
+summary(log.lm2)
+plot(log.lm2$fit, log.lm2$res,xlab="Fitted values",ylab="Residuals", main="Anscombe plot") 
+abline(h=0)
+qqnorm(log.lm2$res,main="Normal probability plot")
+qqline(log.lm2$res)
+par(old.par)
+#####################################
+# Multicollinearity Analysis 
+######################################
+mod.adr27 <-  lm(logADR27 ~ logT867 + logCS505 + logH505, data=logdata) 
+summary(mod.adr27) # Multiple R^2 = 0.9936,
+mod.t867 <-  lm(logT867 ~ logADR27 + logH505 + logCS505, data=logdata)  
+summary(mod.t867) # Multiple R^2 = 0.977,
+mod.cs505 <-  lm(logCS505 ~ logADR27 + logH505 + logT867, data=logdata)  
+summary(mod.cs505) # Multiple R^2 = 0.9837,
+mod.h505 <-  lm(logH505 ~ logADR27 + logCS505 + logT867, data=logdata)  
+summary(mod.h505) # Multiple R^2 = 0.5784,
+# Variance inflation factors 
+vifs <- c(0.9936, 0.977, 0.9837, 0.5784)
+vifs <- 1/(1-vifs) 
+#Condition numbers 
+X <- logdata 
+# X is a copy of logdata 
+X[,1] <- 1
+# the first column of X is 1
+# this is for the intercept 
+X <- as.matrix(X) 
+# Coerces X to be a matrix
+xtx <- t(X) %*% X # Gives X^T X
+eigenvalues <- eigen(xtx)$values
+kappa <- max(eigenvalues)/min(eigenvalues)
+kappa <- sqrt(kappa)
+# kappa = 244 is much LARGER than 30!
+
+### Validation statistic
+# Fit the log.lm2 model with the first 45 observations  
+# use the fitted model to predict the remaining 9 observations 
+# Calculate the mean square error validation statistic 
+log.lmsub <- lm(logADR37 ~ logADR27 + logT867 + logH505, data=logdata, subset=1:45) 
+# Now predict all 54 observations using the fitted model
+mod.pred <- predict(log.lmsub, logdata, se.fit=TRUE) 
+mod.pred$fit # provides all the 54 predicted values 
+logdata$pred <- mod.pred$fit
+# Get only last 9 
+a <- logdata[46:54, ]
+validation.residuals <- a$logADR37 - a$pred  
+validation.stat <- mean(validation.residuals^2)
+validation.stat
+```
+
+## `err_age` : data set 
+
+This data set contains the errors in guessing ages of 10 Southampton 
+mathematicians. 
+
+```{r, eval=TRUE}
+summary(err_age)
+```
+
+## `ffood` : Fast food service time data set 
+
+Service (waiting) times (in seconds) of customers at a fast-food restaurant. Source: Unknown. 
+```{r ffood, eval=TRUE}
+summary(ffood)
+ # 95% Confidence interval for the mean waiting time usig t-distribution
+ a <- c(ffood$AM, ffood$PM)
+ mean(a) + c(-1, 1) * qt(0.975, df=19) * sqrt(var(a))/sqrt(20) 
+ # Two sample t-test for the difference between morning and afternoon times
+ t.test(ffood$AM, ffood$PM)
+```
+
+## `gasmileage` : data set 
+
+This data set contains gas mileage obtained from four models of a car.
+
+
+```{r gasmileage , eval=TRUE}
+summary(gasmileage)
+y <- c(22, 26,  28, 24, 29,   29, 32, 28,  23, 24)
+xx <- c(1,1,2,2,2,3,3,3,4,4)
+# Plot the observations 
+plot(xx, y, col="red", pch="*", xlab="Model", ylab="Mileage")
+# Method1: Hand calculation 
+ni <- c(2, 3, 3, 2)
+means <- tapply(y, xx, mean)
+vars <- tapply(y, xx, var)
+round(rbind(means, vars), 2)
+sum(y^2) # gives 7115
+totalSS <- sum(y^2) - 10 * (mean(y))^2 # gives 92.5 
+RSSf <- sum(vars*(ni-1)) # gives 31.17 
+groupSS <- totalSS - RSSf # gives 61.3331.17/6
+meangroupSS <- groupSS/3 # gives 20.44
+meanErrorSS <- RSSf/6 # gives 5.194
+Fvalue <- meangroupSS/meanErrorSS # gives 3.936 
+pvalue <- 1-pf(Fvalue, df1=3, df2=6)
+
+#### Method 2: Illustrate using dummy variables
+#################################
+#Create the design matrix X for the full regression model
+g <- 4
+n1 <- 2 
+n2 <- 3
+n3 <- 3
+n4 <- 2
+n <- n1+n2+n3+n4
+X <- matrix(0, ncol=g, nrow=n)       #Set X as a zero matrix initially
+X[1:n1,1] <- 1    #Determine the first column of X
+X[(n1+1):(n1+n2),2] <- 1   #the 2nd column
+X[(n1+n2+1):(n1+n2+n3),3] <- 1    #the 3rd
+X[(n1+n2+n3+1):(n1+n2+n3+n4),4] <- 1    #the 4th 
+#################################
+####Fitting the  full model####
+#################################
+#Estimation
+XtXinv <- solve(t(X)%*%X)
+betahat <- XtXinv %*%t(X)%*%y   #Estimation of the coefficients
+Yhat <- X%*%betahat   #Fitted Y values
+Resids <- y - Yhat   #Residuals
+SSE <- sum(Resids^2)   #Error sum of squares
+S2hat <- SSE/(n-g)   #Estimation of sigma-square; mean square for error
+Sigmahat <- sqrt(S2hat)
+
+##############################################################
+####Fitting the reduced model -- the 4 means are equal #####
+##############################################################
+Xr <- matrix(1, ncol=1, nrow=n)
+kr <- dim(Xr)[2]
+#Estimation
+Varr <- solve(t(Xr)%*%Xr)
+hbetar <- solve(t(Xr)%*%Xr)%*%t(Xr)%*% y   #Estimation of the coefficients
+hYr = Xr%*%hbetar   #Fitted Y values
+Resir <- y - hYr   #Residuals
+SSEr <- sum(Resir^2)   #Total sum of squares
+###################################################################
+####F-test for comparing the reduced model with the full model ####
+###################################################################
+FStat <- ((SSEr-SSE)/(g-kr))/(SSE/(n-g))  #The test statistic of the F-test
+alpha <- 0.05
+Critical_value_F <- qf(1-alpha, g-kr,n-g)  #The critical constant of F-test
+pvalue_F <- 1-pf(FStat,g-kr, n-g)   #p-value of F-test
+
+modelA <- c(22, 26)
+modelB <- c(28, 24, 29)
+modelC <- c(29, 32, 28)
+modelD <- c(23, 24)
+
+SSerror = sum( (modelA-mean(modelA))^2 ) + sum( (modelB-mean(modelB))^2 ) 
++ sum( (modelC-mean(modelC))^2 ) + sum( (modelD-mean(modelD))^2 )
+SStotal <-  sum( (y-mean(y))^2 ) 
+SSgroup <- SStotal-SSerror
+
+####
+#### Method 3: Use the  built-in function lm directly
+
+#####################################
+aa <- "modelA"
+bb <- "modelB"
+cc <- "modelC"
+dd <- "modelD"
+Expl <- c(aa,aa,bb,bb,bb,cc,cc,cc,dd,dd)
+is.factor(Expl)
+Expl <- factor(Expl)
+model1 <- lm(y~Expl)
+summary(model1)      
+anova(model1)
+###Alternatively ###
+
+xxf <- factor(xx)
+is.factor(xxf)
+model2 <- lm(y~xxf)
+summary(model2)
+anova(model2)
+```
+
+## `possum` : data set 
+
+This data set contains body weight and length of possums (tree living furry animals who are mostly nocturnal (marsupial) caught in 7 different regions of Australia.
+Source: Lindenmayer and Donnelly (1995). [@Lindenmayer1995]
+
+```{r possum, eval=TRUE}
+ head(possum)
+ dim(possum)
+ summary(possum)
+ ## Code lines used in the book
+ ## Create a new data set   
+ poss <- possum 
+ poss$region <- factor(poss$Location)
+ levels(poss$region) <- c("W.A", "S.A", "N.T", "QuL", "NSW", "Vic", "Tas")
+ colnames(poss)<-c("y","z","Location", "x")
+ head(poss)
+ # Draw side by side boxplots 
+ boxplot(y~x, data=poss, col=2:8, xlab="region", ylab="Weight")
+ # Obtain scatter plot 
+ # Start with a skeleton plot 
+ plot(poss$z, poss$y, type="n", xlab="Length", ylab="Weight")
+ # Add points for the seven regions
+ for (i in 1:7) {
+    points(poss$z[poss$Location==i],poss$y[poss$Location==i],type="p", pch=as.character(i), col=i)
+    }
+## Add legends 
+ legend(x=76, y=4.2, legend=paste(as.character(1:7), levels(poss$x)),  lty=1:7, col=1:7)
+ # Start  modelling 
+ #Fit the model with interaction. 
+ poss.lm1<-lm(y~z+x+z:x,data=poss)
+ summary(poss.lm1)
+ plot(poss$z, poss$y,type="n", xlab="Length", ylab="Weight")
+ for (i in 1:7) {
+ lines(poss$z[poss$Location==i],poss.lm1$fit[poss$Location==i],type="l",
+ lty=i, col=i, lwd=1.8)
+ points(poss$z[poss$Location==i],poss$y[poss$Location==i],type="p",
+ pch=as.character(i), col=i)
+ }
+ poss.lm0 <- lm(y~z,data=poss)
+ abline(poss.lm0, lwd=3, col=9)
+ # Has drawn the seven parallel regression lines
+ legend(x=76, y=4.2, legend=paste(as.character(1:7), levels(poss$x)), 
+ lty=1:7, col=1:7)
+ 
+ n <- length(possum$Body_Weight)
+ # Wrong model since Location is not a numeric covariate 
+ wrong.lm <- lm(Body_Weight~Location, data=possum)
+ summary(wrong.lm)
+ 
+ nis <- table(possum$Location)
+ meanwts <- tapply(possum$Body_Weight, possum$Location, mean)
+ varwts <- tapply(possum$Body_Weight, possum$Location, var)
+ datasums <- data.frame(nis=nis, mean=meanwts, var=varwts)
+ datasums <- data.frame(nis=nis, mean=meanwts, var=varwts)
+ modelss <- sum(datasums[,2] * (meanwts - mean(meanwts))^2)
+ residss <- sum( (datasums[,2] - 1) * varwts)
+ 
+ fvalue <- (modelss/6) / (residss/94)
+ fcritical <- qf(0.95, df1= 6, df2=94)
+ x <- seq(from=0, to=12, length=200)
+ y <- df(x, df1=6, df2=94)
+ plot(x, y, type="l", xlab="", ylab="Density of F(6, 94)", col=4)
+ abline(v=fcritical, lty=3, col=3)
+ abline(v=fvalue, lty=2, col=2)
+ pvalue <- 1-pf(fvalue, df1=6, df2=94)
+ 
+ ### Doing the above in R
+ # Convert  the Location column to a factor
+ 
+ localpossum <- possum
+ localpossum$Location <- as.factor(localpossum$Location)
+ summary(localpossum)  # Now Location is a factor 
+  
+ # Put the identifiability constraint:
+ options(contrasts=c("contr.treatment", "contr.poly"))
+ # Change to have easier column names 
+ colnames(localpossum) <- c("y", "z", "x")
+ # Fit model M1
+ possum.lm1 <- lm(y~x, data=localpossum)
+ summary(possum.lm1)
+ anova(possum.lm1)
+ possum.lm2 <- lm(y~z, data=localpossum)
+ summary(possum.lm2)
+ anova(possum.lm2)
+ # Include both location and length but no interaction 
+ possum.lm3 <-  lm(y~x+z, data=localpossum)
+ summary(possum.lm3)
+ anova(possum.lm3)
+ # Include interaction effect 
+ possum.lm4 <-  lm(y~x+z+x:z, data=localpossum)
+ summary(possum.lm4)
+ anova(possum.lm4)
+ anova(possum.lm2, possum.lm3)
+ #Check the diagnostics for M3
+ plot(possum.lm3$fit, possum.lm3$res,xlab="Fitted values",ylab="Residuals", 
+ main="Anscombe plot")
+ abline(h=0)
+ qqnorm(possum.lm3$res,main="Normal probability plot")
+ qqline(possum.lm3$res)
+ rm(localpossum)
+ rm(poss)
+```
+
+
+## `puffin` : data set 
+
+This object contains data regarding nesting habits of common puffin. Source: Nettleship (1972).  [@puffindata]
+
+```{r puffin, eval=TRUE}
+head(puffin)
+dim(puffin)
+summary(puffin)
+pairs(puffin)
+puffin$sqrtfreq <- sqrt(puffin$Nesting_Frequency)
+puff.sqlm <- lm(sqrtfreq~ Grass_Cover + Mean_Soil_Depth + Slope_Angle 
++Distance_from_Edge, data=puffin) 
+old.par <- par(no.readonly = TRUE)
+par(mfrow=c(2,1))
+qqnorm(puff.sqlm$res,main="Normal probability plot")
+qqline(puff.sqlm$res)
+plot(puff.sqlm$fit, puff.sqlm$res,xlab="Fitted values",ylab="Residuals", 
+main="Anscombe plot")
+abline(h=0)
+summary(puff.sqlm)
+par(old.par)
+#####################################
+# F test for two betas at the  same time: 
+######################################
+puff.sqlm2 <- lm(sqrtfreq~ Mean_Soil_Depth + Distance_from_Edge, data=puffin) 
+anova(puff.sqlm)
+anova(puff.sqlm2)
+fval <-  1/2*(14.245-12.756)/0.387 # 1.924 
+qf(0.95, 2, 33) # 3.28
+1-pf(fval, 2, 33) # 0.162
+anova(puff.sqlm2, puff.sqlm)
+```
+
+## `rice` : data set on rice yield
+Source:  Bal and Ojha (1975). [@BAL1975353]
+
+```{r rice, eval=TRUE}
+ summary(rice)
+ plot(rice$Days, rice$Yield, pch="*", xlab="Days", ylab="Yield")
+ rice$daymin31 <- rice$Days-31
+ rice.lm <- lm(Yield ~ daymin31, data=rice)
+ summary(rice.lm)
+ # Check the diagnostics 
+ plot(rice.lm$fit, rice.lm$res, xlab="Fitted values", ylab = "Residuals")
+ abline(h=0)
+ # Should be a random scatter
+ # Needs a quadratic term
+ 
+ qqnorm(rice.lm$res)
+ qqline(rice.lm$res)
+ rice.lm2 <- lm(Yield ~ daymin31 + I(daymin31^2) , data=rice)
+ old.par <- par(no.readonly = TRUE)
+ par(mfrow=c(1, 2))
+ plot(rice.lm2$fit, rice.lm2$res, xlab="Fitted values", ylab = "Residuals")
+ abline(h=0)
+ # Should be a random scatter 
+ # Much better plot!
+ qqnorm(rice.lm2$res)
+ qqline(rice.lm2$res)
+ summary(rice.lm2)
+ par(old.par) # par(mfrow=c(1,1))
+ plot(rice$Days,  rice$Yield, xlab="Days", ylab="Yield")
+ lines(rice$Days, rice.lm2$fit, lty=1, col=3)
+ rice.lm3 <- lm(Yield ~ daymin31 + I(daymin31^2)+I(daymin31^3) , data=rice)
+ #check the diagnostics 
+ summary(rice.lm3) # Will print the summary of the fitted model 
+ #### Predict at a new value of Days=31.1465
+ 
+ # Create a new data set called new
+ new <- data.frame(daymin31=32.1465-31)
+ 
+ a <- predict(rice.lm2, newdata=new, se.fit=TRUE) 
+ # Confidence interval for the mean of rice yield  at day=31.1465
+ a <- predict(rice.lm2, newdata=new, interval="confidence") 
+ a
+ #          fit      lwr      upr
+ # [1,] 3676.766 3511.904 3841.628
+ # Prediction interval for a future yield at day=31.1465
+ b <- predict(rice.lm2, newdata=new, interval="prediction") 
+ b
+ # fit      lwr      upr
+ #[1,] 3676.766 3206.461 4147.071
+```
+
+## `wgain`: data set on weight gain of students
+
+This contains weight gain data from 68 first year students during their first 12 
+weeks in college. Source: Levitsky {\it et al} (2004). [@Levitsky2004]
+
+```{r wgain, eval=TRUE}
+summary(wgain)
+# 95% Confidence interval for mean weight gain 
+x <- wgain$final - wgain$initial
+mean(x) + c(-1, 1) * qt(0.975, df=67) * sqrt(var(x)/68)
+# t-test to test the mean difference equals 0
+t.test(x)
+```
+
+# Illustrated R functions 
+
+
+## The butterfly function 
+
+This function draws a butterfly as on the front cover of the book. This is a plot obtained as follows.  Initially a sequence of 
+angles denoted by $\theta$ is chosen in the range 0 to 24$\pi$. Then, we specify two parameters $a$ and $b$ and evaluate the following equations. The illustrations show the effect of these two parameters on the shape of the resulting plot obtained by plotting $x-y$ pairs. Successive points on the plot are joined by  lines.   
+\begin{equation}
+r = \exp(\cos(\theta)) - a \cos(b \,  \theta) + \sin\left(\frac{\theta}{12}\right) \\
+x = r \sin(\theta) \\
+y = -r \cos(\theta)
+\end{equation}
+```{r butterfly, eval=TRUE}
+butterfly(color = 6)
+old.par <- par(no.readonly = TRUE)
+par(mfrow=c(2, 2))
+butterfly(a=10, b=1.5, color = "seagreen")
+butterfly(color = 6)
+butterfly(a=5, b=5, color=2)
+butterfly(a=20, b=4, color = "blue")
+par(old.par) # par(mfrow=c(1, 1))
+```
+  
+
+## Simulation of the Monty Hall game
+
+
+The function `?monty` simulates the famous Monty Hall game. This function is written by [@Monty.Corey2012]. The function takes the arguments: `strat`: short form for strategy which can take one of the three choices: 
+* "stay" : Do not change the initial door chosen
+* "swap" : Swap the door chosen initially.
+* "random" : Randomly decide to stay or swap.
+
+The other parameters are $N$: How many games to play, defaults to 1000 and 
+`print_games`, which is a logical argument that tells whether to print the results of each of the $N$ games. Here are three illustrations of the games. 
+```{r}
+monty("stay", print_games = FALSE)
+monty("switch", print_games = FALSE)
+monty("random", print_games = FALSE)
+```
+
+
+  
+  
+# Functions illustrating the Central Limit Theorem (CLT)
+
+There are two functions illustrating the CLT. The first one 
+'?see_the_clt_for_Bernoulli' simulates `nrep=10000` samples of size 
+`nsize=10` with probability of success $p=0.8$ by default. It then finds 
+the means of the `nrep` samples and standardises the means by subtracting 
+the overall mean and dividing by the sample standard deviation. It then draws a 
+histogram of the sample means and superimposes the theoretical density of the standard normal distribution. The histogram will closely resemble the density of the standard normal distribution if the CLT approximation is good. The quality of the approximation depends on the sample size `nsize`. This can be observed from the illustrations provided below. 
+```{r cltforBernoulli, eval=TRUE}
+a <- see_the_clt_for_Bernoulli()
+old.par <- par(no.readonly = TRUE)
+par(mfrow=c(2, 2))
+a30 <- see_the_clt_for_Bernoulli(nsize=30)
+a50 <- see_the_clt_for_Bernoulli(nsize=50)
+# a100 <- see_the_clt_for_Bernoulli(nsize=100)
+# a500 <- see_the_clt_for_Bernoulli(nsize=500)
+a1000 <- see_the_clt_for_Bernoulli(nsize=1000)
+a5000 <- see_the_clt_for_Bernoulli(nsize=5000)
+par(old.par)
+```
+
+The second function `?see_the_clt_for_uniform` demonstrates the CLT for sampling from the uniform distribution in the interval (0,1). As in the previous function for the Bernoulli distribution, this also takes two similar arguments and behaves very similarly as demonstrated below. But the sampling is done from the uniform distribution. 
+```{r, seethecltforuniform, eval=TRUE}
+a <- see_the_clt_for_uniform()
+old.par <- par(no.readonly = TRUE) 
+par(mfrow=c(2, 2))
+a1 <- see_the_clt_for_uniform(nsize=1)
+a2 <- see_the_clt_for_uniform(nsize=2)
+#a3 <- see_the_clt_for_uniform(nsize=5)
+#a4 <- see_the_clt_for_uniform(nsize=10)
+a5 <- see_the_clt_for_uniform(nsize=20)
+a6 <- see_the_clt_for_uniform(nsize=50)
+par(old.par)
+ybars <- see_the_clt_for_uniform(nsize=12)
+zbars <- (ybars - mean(ybars))/sd(ybars)
+k <- 100
+u <- seq(from=min(zbars), to= max(zbars), length=k)
+ecdf <-  rep(NA, k)
+for(i in 1:k) ecdf[i] <- length(zbars[zbars<u[i]])/length(zbars)
+tcdf <- pnorm(u)
+plot(u, tcdf, type="l", col="red", lwd=4, xlab="", ylab="cdf")
+lines(u, ecdf, lty=2, col="darkgreen", lwd=4)
+symb <- c("cdf of sample means", "cdf of N(0, 1)")
+legend(x=-3.5, y=0.4, legend = symb, lty = c(2, 1), 
+col = c("darkgreen","red"), bty="n")
+```
+
+This function also provides a plot of the estimated cumulative density function (cdf) of the standarised sample means and superimposes the cdf of the standard normal distribution. The CLT states that these cdf's will be very close to each other as the sample size $n \to \infty$.   
+
+# Functions illustrating the Weak Law of Large Numbers (WLLN)
+
+The function `?see_the_wlln_for_uniform` illustrates the WLLN for sampling from the uniform distribution in the interval (0, 1).  Similar to the two functions demonstrating the CLT, this function takes two arguments `nsize` for sample size and `nrep` for number of replications.   The function draws the histogram of the replicated sample means and draws an estimated density function of the samples. 
+The below illustration shows that the estimated density gets more peaked as the sample size $n$ increases. The WLLN says that the estimated density will gradually become just a spike as $n \to \infty$.   
+
+```{r seethewlln, eval=TRUE}
+a1 <- see_the_wlln_for_uniform(nsize=1, nrep=50000)
+a2 <- see_the_wlln_for_uniform(nsize=10, nrep=50000)
+a3 <- see_the_wlln_for_uniform(nsize=50, nrep=50000)
+a4 <- see_the_wlln_for_uniform(nsize=100, nrep=50000)
+plot(a4, type="l", lwd=2, ylim=range(c(a1$y, a2$y, a3$y, a4$y)), col=1, 
+lty=1, xlab="mean", ylab="density estimates")
+lines(a3, type="l", lwd=2, col=2, lty=2)
+lines(a2, type="l", lwd=2, col=3, lty=3)
+lines(a1, type="l", lwd=2, col=4, lty=4)
+symb <- c("n=1", "n=10", "n=50", "n=100")
+legend(x=0.37, y=11.5, legend = symb, lty =4:1, col = 4:1)
+```
+
+
+
+
+<!--
+ table4.1 %>%
+ as_hux(add_colnames = FALSE) %>%   set_number_format(2)     %>% map_text_color(by_cols("darkred", "blue", "darkgreen", "purple")) %>% add_colnames("Model") %>% set_header_rows(1, TRUE) %>%  add_rownames() %>%
+   set_all_borders(1)  %>%set_bold(1, everywhere) %>% 
+   style_headers(bold = TRUE, text_color = "red") %>% 
+   set_caption('(#tab:logistic) Comparison of logistic #regession models for static areal data') -->
+
+# Discussion 
+
+More work is needed here. 
+
+<!---A fuller version of this document with additional graphical illustrations 
+<a href="https://www.sujitsahu.com/ipsRdbs/vignette.html" > is also available.  </a> 
+-->
+
+# References 

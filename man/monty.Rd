@@ -2,10 +2,13 @@
 % Please edit documentation in R/monty.R
 \name{monty}
 \alias{monty}
-\title{# Simulation of the Monty Hall Problem
-# Demonstrates that switching is always better than staying with 
-# your initial guess
+\title{Simulation of the Monty Hall Problem. 
+This demonstrates that switching is always better than staying with 
+the initial guess.
 Programme written by Corey Chivers, 2012}
+\source{
+Corey Chivers (2012) \insertCite{Monty.Corey2012;textual}{ipsRdbs}
+}
 \usage{
 monty(strat = "stay", N = 1000, print_games = TRUE)
 }
@@ -30,9 +33,9 @@ overall percentage of winning.
 ####################################################
 }
 \description{
-# Simulation of the Monty Hall Problem
-# Demonstrates that switching is always better than staying with 
-# your initial guess
+Simulation of the Monty Hall Problem. 
+This demonstrates that switching is always better than staying with 
+the initial guess.
 Programme written by Corey Chivers, 2012
 }
 \examples{

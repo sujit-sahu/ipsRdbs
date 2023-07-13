@@ -2,32 +2,32 @@
 % Please edit documentation in R/rfunctions.R
 \name{butterfly}
 \alias{butterfly}
-\title{Draws a butterfly as in the front cover of the book}
+\title{Draws a butterfly as on the front cover of the book}
 \usage{
-butterfly(color = 2, p1 = 2, p2 = 4)
+butterfly(color = 2, a = 2, b = 4)
 }
 \arguments{
 \item{color}{This is the color to use in the plot. It can take any value 
 that R can use for color, e.g. 1, 2, "blue" etc.}
 
-\item{p1}{Parameter controlling the shape of the butterfly}
+\item{a}{Parameter controlling the shape of the butterfly}
 
-\item{p2}{Second parameter controlling the shape of the butterfly}
+\item{b}{Second parameter controlling the shape of the butterfly}
 }
 \value{
 No return value, called for side effects. It generates a plot
 whose colour and shape are determined by the supplied parameters.
 }
 \description{
-Draws a butterfly as in the front cover of the book
+Draws a butterfly as on the front cover of the book
 }
 \examples{
 butterfly(color = 6)
 old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2, 2))
 butterfly(color = 6)
-butterfly(p1=5, p2=5, color=2)
-butterfly(p1=10, p2=1.5, color = "seagreen")
-butterfly(p1=20, p2=4, color = "blue")
+butterfly(a=5, b=5, color=2)
+butterfly(a=10, b=1.5, color = "seagreen")
+butterfly(a=20, b=4, color = "blue")
 par(old.par) # par(mfrow=c(1, 1))
 }

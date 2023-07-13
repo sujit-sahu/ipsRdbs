@@ -5,16 +5,15 @@
 \alias{beanie}
 \title{Age and value of 50 beanie baby toys}
 \format{
-An object of class \code{data.frame} with 50 rows and 3 columns.
-}
-\source{
-Beanie world magazine
- @format A data frame with 50 rows and 3 columns:
+A data frame with 50 rows and 3 columns:
 \describe{
   \item{name}{Name of the toy}
   \item{age}{Age of the toy in months}
   \item{value}{Market value of the toy in US dollars}
 }
+}
+\source{
+Beanie world magazine
 }
 \usage{
 beanie
@@ -23,7 +22,8 @@ beanie
 Age and value of 50 beanie baby toys
 }
 \examples{
- summary(beanie)
  head(beanie)
+ summary(beanie)
+ plot(beanie$age, beanie$value, xlab="Age", ylab="Value", pch="*", col="red")
 }
 \keyword{datasets}

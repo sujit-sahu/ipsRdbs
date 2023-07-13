@@ -3,7 +3,7 @@
 #' @format A data frame with two columns and eleven rows:
 #' \describe{
 #'   \item{mileage}{Mileage obtained}
-#'   \item{model}{Four car models}
+#'   \item{model}{Four types of car models}
 #' }
 #' @examples
 #' summary(gasmileage)

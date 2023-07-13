@@ -33,15 +33,16 @@ NULL
 #' Age and value of 50 beanie baby toys    
 #' 
 #' @source Beanie world magazine
-#'  @format A data frame with 50 rows and 3 columns:
+#' @format A data frame with 50 rows and 3 columns:
 #' \describe{
 #'   \item{name}{Name of the toy}
 #'   \item{age}{Age of the toy in months}
 #'   \item{value}{Market value of the toy in US dollars}
 #' }
 #' @examples
-#'  summary(beanie)
 #'  head(beanie)
+#'  summary(beanie)
+#'  plot(beanie$age, beanie$value, xlab="Age", ylab="Value", pch="*", col="red")
 "beanie"
 
 #' Wealth, age and region of 225 billionaires in 1992 as reported in the 
@@ -118,7 +119,7 @@ NULL
 
 #' Errors in guessing ages of Southampton mathematicians
 #' 
-#'  @format A data frame with 550 rows and 10 columns
+#' @format A data frame with 550 rows and 10 columns
 #' \describe{
 #'  \item{group}{Group number of the students guessing the ages}
 #'  \item{size}{Number of students in the group}
@@ -138,8 +139,7 @@ NULL
 
 #' Service (waiting) times (in seconds)  of customers at a fast-food 
 #' restaurant.    
-#' 
-#'  @format A data frame with 10 rows and 2 columns:
+#' @format A data frame with 10 rows and 2 columns:
 #' \describe{
 #'   \item{AM}{Waiting times for customers served during 9-10AM}
 #'   \item{PM}{Waiting times for customers served during 2-3PM}
@@ -261,7 +261,7 @@ NULL
 #' Weight gain data from 68 first year students during their first 12 
 #' weeks in college    
 #' 
-#'  @format A data frame with three columns and 68 rows:
+#' @format A data frame with three columns and 68 rows:
 #' \describe{
 #'   \item{student}{Student number, 1 to 68.}
 #'   \item{initial}{Initial weight in kilogram}
