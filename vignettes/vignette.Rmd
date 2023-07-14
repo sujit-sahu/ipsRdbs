@@ -12,7 +12,7 @@ author:
 package: ipsRdbs
 abstract: >  
  This is a vignette for the `R` package `r  BiocStyle::CRANpkg("ipsRdbs")`. This package contains data  sets, programmes and illustrations discussed in the book,  "Introduction to Probability, Statistics and R:
- Foundations for Data-Based Sciences."  The data sets and the methods are described in more detail in the book by Sahu (2023). 
+ Foundations for Data-Based Sciences" by Sahu (2023). 
  <br>
 keywords: Anova, butterfly drawing, t-test, Factorial effects, Multiple Regression modelling, Simple linear regression. 
 vignette: >
@@ -78,14 +78,14 @@ ls("package:ipsRdbs")
 ```
 Note that this command will only produce the intended results if only the package has been successfully installed in the first place. 
 
-## Getting to know more about the objects included in the package 
+## How to learn more about the objects included in the package 
 
 All the listed objects, as the output of the `ls` command in the previous section, have associated help files. The reader can gain information for each of those object by asking for help by typing the question mark immediately followed by the object name, e.g. `?butterfly` or by issuing the command `help(butterfly)`.  
 
-The help files provide details about the objects and the user is able to run all the code included as illustrations at the end of the help file. This cam be done either by clicking the `Run Examples` link or simply by copy-pasting all the commands onto the command console in Rstudio. This is a great advantage of `R` as it allows the users to reproduce the results without having to learn all the commands and syntax correctly. After gaining this confidence, a beginner user can examine and experiment with the commands further. More details regarding the objects are provided in the book          
-[@Sahu2023].
+The help files provide details about the objects and the user is able to run all the code included as illustrations at the end of the help file. This cam be done either by clicking the `Run Examples` link or simply by copy-pasting all the commands onto the command console in Rstudio. This is a great advantage of `R` as it allows the users to reproduce the results without having to learn all the commands and syntax correctly. After gaining this confidence, a beginner user can examine and experiment with the commands further. More details regarding the objects are provided in the book Sahu (2023).          
 
-The remainder of this vignette simply elaborates the help files for a selection of the objects. Again the reader is reminded to reproduce all the results by actually running the commands and the code included in the help files.     
+
+The remainder of this vignette simply elaborates the help files for all the main  objects and programmes included in the package. The main intention here is to enable the reader to reproduce all the results by actually running the commands and the code included already included in the help files.     
 
 Section \@ref(data-sets) discusses all the data sets.
 All the `R` functions are discussed in \@ref(illustrated-r-functions).  
@@ -95,17 +95,20 @@ Some summary remarks are provided in Section \@ref(discussion).
 
 # Data sets
 
-## `beanie` : age and value of  beanie baby toys.
+## `beanie`: Age and value of  beanie baby toys.
   
-This data set contains the age and the value of 50 beanie baby toys. Source: Beanie world magazine.
+This data set contains the age and the value of 50 beanie baby toys. Source: Beanie world magazine. This data set has been  used as an example of simple linear regression modellinhg where the exercise is to predict the value of a beanie baby toy by knowing it's age. 
+
 ```{r, eval=TRUE}
 head(beanie)
 summary(beanie)
 plot(beanie$age, beanie$value, xlab="Age", ylab="Value", pch="*", col="red")
 ```
 
-## `bill` :  wealth and age of world billionaires
-This data set contains wealth, age and region of 225 billionaires in 1992 as reported in the Fortune magazine. 
+## `bill`:  Wealth and age of world billionaires
+This data set contains wealth, age and region of 225 billionaires in 1992 as reported in the Fortune magazine. This data set can be  used to illustrate exploratory data analysis by producing side-by-side box plots of wealth for billionaires from different continents of the world.  It can also be used for multiple linear regression models, although  such tasks have 
+not been undertaken here.   
+
 
 ```{r bill, eval=TRUE}
 head(bill)
@@ -122,32 +125,23 @@ title="Scatterplot", caption = "Source: Fortune Magazine, 1992.")
 plot(gg)
 ```
 
-## `bodyfat` : body fat percentage and skinfold thickness of athletes 
+## `bodyfat` : Body fat percentage and skinfold thickness of athletes 
 
 This data set contains body fat percentage data for 102 elite male athletes
-training at the Australian Institute of Sport.
+training at the Australian Institute of Sport. This data set has been used to illustrate simple linear regression in Chapter 17 of the book by Sahu (2023). 
 
 ```{r bodyfat, eval=TRUE}
 summary(bodyfat)
 plot(bodyfat$Skinfold,  bodyfat$Bodyfat, xlab="Skin", ylab="Fat")
 plot(bodyfat$Skinfold,  log(bodyfat$Bodyfat), xlab="Skin", ylab="log Fat")
 plot(log(bodyfat$Skinfold),  log(bodyfat$Bodyfat), xlab="log Skin", ylab="log Fat")
-old.par <- par(no.readonly = TRUE)
-par(mfrow=c(2,2)) # draws four plots in a graph
-plot(bodyfat$Skinfold,  bodyfat$Bodyfat, xlab="Skin", ylab="Fat")
-plot(bodyfat$Skinfold,  log(bodyfat$Bodyfat), xlab="Skin", ylab="log Fat")
-plot(log(bodyfat$Skinfold),  log(bodyfat$Bodyfat), xlab="log Skin", ylab="log Fat")
-
-message("Log both X and Y to have the best plot")
 # Keep the transformed variables in the data set 
 bodyfat$logskin <- log(bodyfat$Skinfold)
 bodyfat$logbfat <- log(bodyfat$Bodyfat)
 bodyfat$logskin <- log(bodyfat$Skinfold)
-par(old.par)
  # Create a grouped variable 
 bodyfat$cutskin <- cut(log(bodyfat$Skinfold), breaks=6) 
 boxplot(data=bodyfat, Bodyfat~cutskin, col=2:7)
-head(bodyfat)
 require(ggplot2)
 p2 <- ggplot(data=bodyfat, aes(x=cutskin, y=logbfat)) + 
 geom_boxplot(col=2:7) + 
@@ -173,11 +167,11 @@ s2 <- sum(rs^2)/(n-2)  # calculates estimate of sigma2
 s2
 bfat.lm <- lm(logbfat ~ logskin, data=bodyfat)
 ### Check the diagnostics 
-plot(bfat.lm$fit, bfat.lm$res, xlab="Fitted values", ylab = "Residuals")
+plot(bfat.lm$fit, bfat.lm$res, xlab="Fitted values", ylab = "Residuals", pch="*")
 abline(h=0)
 ### Should be a random scatter
-qqnorm(bfat.lm$res)
-qqline(bfat.lm$res)
+qqnorm(bfat.lm$res, col=2)
+qqline(bfat.lm$res, col="blue")
 
 # All Points should be on the straight line 
 summary(bfat.lm)
@@ -236,9 +230,9 @@ summary(bfat.lm)
 anova(bfat.lm)
 ```
 
-## `bombhits`: number and frequency of bombhits in London 
+## `bombhits`: Number and frequency of bombhits in London 
 
-This data set contains the number of bomb hits in 576 areas in London during World War II. Data sourced from Shaw and Shaw (2019), see also Hand et al (1993). [@Handetal1993] [@bombhits]
+This data set contains the number of bomb hits in 576 areas in London during World War II. Data sourced from Shaw and Shaw (2019), see also Hand {\it et al.} (1993). [@Handetal1993] [@bombhits] This data set has been used to illustrate elementary concepts of statistical inference in Chapter 9 of the book Sahu (2023). 
 
 ```{r bombhits, eval=TRUE}
  summary(bombhits)
@@ -265,24 +259,28 @@ This data set contains the number of bomb hits in 576 areas in London during Wor
   for the number of bomb hits in London")
 ```
 
-## `cement`: breaking strength of cement   
+## `cement`: Breaking strength of cement  
 
-Contains data regarding breaking strength of cement. 
+Contains data regarding breaking strength of cement. This data set has been used to illustrate analysis of variance in Chapter 19 of the book Sahu (2023). 
+
 ```{r, eval=TRUE}
 summary(cement)
 boxplot(data=cement, strength~gauger, col=1:3)
 boxplot(data=cement, strength~breaker, col=1:3)
 ```
 
-## `cfail`: number of weekly computer failures
+## `cfail`: Number of weekly computer failures
 
 This data set contains weekly number of failures of a university computer 
 system over a period of two years. Source: Hand {\it et al.} (1993). 
-[@Handetal1993]
+[@Handetal1993] Like the `bombhits` example this data set has been used to illustrate elementary concepts of statistical inference in Chapter 9 of the book Sahu (2023). 
 
-## `cheese` : taste of cheese 
+## `cheese` : Taste of cheese 
 
 This data set is from a testing of cheese experiment. 
+This data set has been used to illustrate multiple linear regression modeling 
+in Chapter 18 of the book Sahu (2023). 
+
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 summary(cheese)
 pairs(cheese)
@@ -292,15 +290,15 @@ cheese.lm <- lm(Taste ~ AceticAcid +  LacticAcid + logH2S, data=cheese, subset=2
  plot(cheese.lm$fit, cheese.lm$res, xlab="Fitted values", ylab = "Residuals")
  abline(h=0)
  # Should be a random scatter
- qqnorm(cheese.lm$res)
- qqline(cheese.lm$res)
+ qqnorm(cheese.lm$res, col=2)
+ qqline(cheese.lm$res, col="blue")
  summary(cheese.lm)
  cheese.lm2 <- lm(Taste ~ LacticAcid + logH2S, data=cheese)
  # Check the diagnostics 
  plot(cheese.lm2$fit, cheese.lm2$res, xlab="Fitted values", ylab = "Residuals")
  abline(h=0)
- qqnorm(cheese.lm2$res)
- qqline(cheese.lm2$res)
+ qqnorm(cheese.lm2$res, col=2)
+ qqline(cheese.lm2$res, col="blue")
  summary(cheese.lm2)
  # How can we predict? 
  newcheese <- data.frame(AceticAcid = 300, LacticAcid = 1.5, logH2S=4)
@@ -316,12 +314,12 @@ cheese.lm <- lm(Taste ~ AceticAcid +  LacticAcid + logH2S, data=cheese, subset=2
  cheese.pred.pred.limits
 ```
 
-## `emissions` :  Exhaust emissions of cars  
+## `emissions` : Exhaust emissions of cars  
 
 Data on the nitrous oxide content of exhaust emissions from a set of 
 cars was collected by the Australian Traffic Accident Research Bureau 
 to explore the relationship between several measures of nitrous 
-oxide emissions.
+oxide emissions. Like the `cheese` data set, this has been used to illustrate multiple linear regression modeling  in Chapter 18 of the book Sahu (2023). 
 
 ```{r emissions, eval=TRUE}
 summary(emissions)
@@ -334,8 +332,8 @@ old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2,1))
 plot(raw.lm$fit, raw.lm$res,xlab="Fitted values",ylab="Residuals", main="Anscombe plot") 
 abline(h=0)
-qqnorm(raw.lm$res,main="Normal probability plot")
-qqline(raw.lm$res)
+qqnorm(raw.lm$res,main="Normal probability plot", col=2)
+qqline(raw.lm$res, col="blue")
 # summary(raw.lm)
 logdata <- log(rawdata)
 # This only logs the values but not the column names!
@@ -346,15 +344,15 @@ pairs(logdata)
 log.lm <- lm(logADR37 ~ logADR27 + logCS505  + logT867 + logH505, data=logdata) 
 plot(log.lm$fit, log.lm$res,xlab="Fitted values",ylab="Residuals", main="Anscombe plot") 
 abline(h=0)
-qqnorm(log.lm$res,main="Normal probability plot")
-qqline(log.lm$res)
+qqnorm(log.lm$res,main="Normal probability plot", col=2)
+qqline(log.lm$res, col="blue")
 summary(log.lm)
 log.lm2 <- lm(logADR37 ~ logADR27 + logT867 + logH505, data=logdata) 
 summary(log.lm2)
 plot(log.lm2$fit, log.lm2$res,xlab="Fitted values",ylab="Residuals", main="Anscombe plot") 
 abline(h=0)
-qqnorm(log.lm2$res,main="Normal probability plot")
-qqline(log.lm2$res)
+qqnorm(log.lm2$res,main="Normal probability plot", col=2)
+qqline(log.lm2$res, col="blue")
 par(old.par)
 #####################################
 # Multicollinearity Analysis 
@@ -403,7 +401,8 @@ validation.stat
 ## `err_age` : Error in guessing ages from photographs 
 
 This data set contains the errors in guessing ages of 10 Southampton 
-mathematicians. 
+mathematicians. This data set has been used as an exercise in obtaining summary statistics and performing exploratory data analysis in Chapter 2 of the book 
+Sahu (2023). 
 
 ```{r, eval=TRUE}
 summary(err_age)
@@ -421,10 +420,11 @@ summary(ffood)
  t.test(ffood$AM, ffood$PM)
 ```
 
-## `gasmileage` : Gas mileage of cars  
+## `gasmileage` : Gas mileage of cars 
 
-This data set contains gas mileage obtained from four models of a car.
-
+This data set contains gas mileage obtained from four models of a car. 
+This data set has been used to illustrate the concepts of analysis of variance  
+in Chapter 19 of the book Sahu (2023). 
 
 ```{r gasmileage , eval=TRUE}
 summary(gasmileage)
@@ -524,9 +524,10 @@ summary(model2)
 anova(model2)
 ```
 
-## `possum` : Body weight and length of possums in Australian regions   
+## `possum` : Body weight and length of possums in Australian regions  
+This data set has been used to illustrate multiple linear regression modeling and analysis of variance  in Chapter 19 of the book Sahu (2023). 
 
-This data set contains body weight and length of possums (tree living furry animals who are mostly nocturnal (marsupial) caught in 7 different regions of Australia.
+The data set contains body weight and length of possums (tree living furry animals who are mostly nocturnal (marsupial) caught in 7 different regions of Australia.
 Source: Lindenmayer and Donnelly (1995). [@Lindenmayer1995]
 
 ```{r possum, eval=TRUE}
@@ -621,16 +622,18 @@ Source: Lindenmayer and Donnelly (1995). [@Lindenmayer1995]
  plot(possum.lm3$fit, possum.lm3$res,xlab="Fitted values",ylab="Residuals", 
  main="Anscombe plot")
  abline(h=0)
- qqnorm(possum.lm3$res,main="Normal probability plot")
- qqline(possum.lm3$res)
+ qqnorm(possum.lm3$res,main="Normal probability plot", col=2)
+ qqline(possum.lm3$res, col="blue")
  rm(localpossum)
  rm(poss)
 ```
 
 
-## `puffin` : Nesting habits of puffins in Newfoundland  
+## `puffin` : Nesting habits of puffins in Newfoundland 
 
 This object contains data regarding nesting habits of common puffin. Source: Nettleship (1972).  [@puffindata]
+This data set has been used to illustrate multiple linear regression modeling 
+in Chapter 18 of the book Sahu (2023). 
 
 ```{r puffin, eval=TRUE}
 head(puffin)
@@ -642,10 +645,10 @@ puff.sqlm <- lm(sqrtfreq~ Grass_Cover + Mean_Soil_Depth + Slope_Angle
 +Distance_from_Edge, data=puffin) 
 old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2,1))
-qqnorm(puff.sqlm$res,main="Normal probability plot")
-qqline(puff.sqlm$res)
+qqnorm(puff.sqlm$res,main="Normal probability plot", col=2)
+qqline(puff.sqlm$res, col="blue")
 plot(puff.sqlm$fit, puff.sqlm$res,xlab="Fitted values",ylab="Residuals", 
-main="Anscombe plot")
+main="Anscombe plot", col="red")
 abline(h=0)
 summary(puff.sqlm)
 par(old.par)
@@ -661,8 +664,10 @@ qf(0.95, 2, 33) # 3.28
 anova(puff.sqlm2, puff.sqlm)
 ```
 
-## `rice` : data on rice yield
-Source:  Bal and Ojha (1975). [@BAL1975353]
+## `rice` : data set on rice yield
+
+This data set has been used to illustrate multiple linear regression modeling 
+in Chapter 18 of the book Sahu (2023).  This data set has been obtained from the journal research article Bal and Ojha (1975). [@BAL1975353]
 
 ```{r rice, eval=TRUE}
  summary(rice)
@@ -676,8 +681,8 @@ Source:  Bal and Ojha (1975). [@BAL1975353]
  # Should be a random scatter
  # Needs a quadratic term
  
- qqnorm(rice.lm$res)
- qqline(rice.lm$res)
+ qqnorm(rice.lm$res, col=2)
+ qqline(rice.lm$res, col="blue")
  rice.lm2 <- lm(Yield ~ daymin31 + I(daymin31^2) , data=rice)
  old.par <- par(no.readonly = TRUE)
  par(mfrow=c(1, 2))
@@ -685,8 +690,8 @@ Source:  Bal and Ojha (1975). [@BAL1975353]
  abline(h=0)
  # Should be a random scatter 
  # Much better plot!
- qqnorm(rice.lm2$res)
- qqline(rice.lm2$res)
+ qqnorm(rice.lm2$res, col=2)
+ qqline(rice.lm2$res, col="blue")
  summary(rice.lm2)
  par(old.par) # par(mfrow=c(1,1))
  plot(rice$Days,  rice$Yield, xlab="Days", ylab="Yield")
@@ -716,6 +721,8 @@ Source:  Bal and Ojha (1975). [@BAL1975353]
 
 This contains weight gain data from 68 first year students during their first 12 
 weeks in college. Source: Levitsky {\it et al} (2004). [@Levitsky2004]
+This data set has been used to illustrate confidence intervals and $t$-tests  
+in part I of the book Sahu (2023). 
 
 ```{r wgain, eval=TRUE}
 summary(wgain)
@@ -753,6 +760,12 @@ par(old.par) # par(mfrow=c(1, 1))
 ## Simulation of the Monty Hall game
 
 
+```{r Montyplot, eval=TRUE, echo=FALSE, fig.cap="Monty Hall game", fig.width =2, fig.height=1}
+library(ipsRdbs)
+figpath <- system.file("figures", package = "ipsRdbs") 
+knitr::include_graphics(paste0(figpath, "/monty.png"))
+```
+
 The function `?monty` simulates the famous Monty Hall game. This function is written by [@Monty.Corey2012]. The function takes the arguments: `strat`: short form for strategy which can take one of the three choices: 
 * "stay" : Do not change the initial door chosen
 * "swap" : Swap the door chosen initially.
@@ -769,7 +782,7 @@ monty("random", print_games = FALSE)
 
   
   
-# Functions illustrating the Central Limit Theorem (CLT)
+## Functions illustrating the Central Limit Theorem (CLT)
 
 There are two functions illustrating the CLT. The first one 
 '?see_the_clt_for_Bernoulli' simulates `nrep=10000` samples of size 
@@ -780,11 +793,11 @@ histogram of the sample means and superimposes the theoretical density of the st
 ```{r cltforBernoulli, eval=TRUE}
 a <- see_the_clt_for_Bernoulli()
 old.par <- par(no.readonly = TRUE)
-par(mfrow=c(2, 2))
+par(mfrow=c(2, 3))
 a30 <- see_the_clt_for_Bernoulli(nsize=30)
 a50 <- see_the_clt_for_Bernoulli(nsize=50)
-# a100 <- see_the_clt_for_Bernoulli(nsize=100)
-# a500 <- see_the_clt_for_Bernoulli(nsize=500)
+a100 <- see_the_clt_for_Bernoulli(nsize=100)
+a500 <- see_the_clt_for_Bernoulli(nsize=500)
 a1000 <- see_the_clt_for_Bernoulli(nsize=1000)
 a5000 <- see_the_clt_for_Bernoulli(nsize=5000)
 par(old.par)
@@ -794,11 +807,11 @@ The second function `?see_the_clt_for_uniform` demonstrates the CLT for sampling
 ```{r, seethecltforuniform, eval=TRUE}
 a <- see_the_clt_for_uniform()
 old.par <- par(no.readonly = TRUE) 
-par(mfrow=c(2, 2))
+par(mfrow=c(2, 3))
 a1 <- see_the_clt_for_uniform(nsize=1)
 a2 <- see_the_clt_for_uniform(nsize=2)
-#a3 <- see_the_clt_for_uniform(nsize=5)
-#a4 <- see_the_clt_for_uniform(nsize=10)
+a3 <- see_the_clt_for_uniform(nsize=5)
+a4 <- see_the_clt_for_uniform(nsize=10)
 a5 <- see_the_clt_for_uniform(nsize=20)
 a6 <- see_the_clt_for_uniform(nsize=50)
 par(old.par)
@@ -818,7 +831,7 @@ col = c("darkgreen","red"), bty="n")
 
 This function also provides a plot of the estimated cumulative density function (cdf) of the standarised sample means and superimposes the cdf of the standard normal distribution. The CLT states that these cdf's will be very close to each other as the sample size $n \to \infty$.   
 
-# Functions illustrating the Weak Law of Large Numbers (WLLN)
+## Functions illustrating the Weak Law of Large Numbers (WLLN)
 
 The function `?see_the_wlln_for_uniform` illustrates the WLLN for sampling from the uniform distribution in the interval (0, 1).  Similar to the two functions demonstrating the CLT, this function takes two arguments `nsize` for sample size and `nrep` for number of replications.   The function draws the histogram of the replicated sample means and draws an estimated density function of the samples. 
 The below illustration shows that the estimated density gets more peaked as the sample size $n$ increases. The WLLN says that the estimated density will gradually become just a spike as $n \to \infty$.   
@@ -848,10 +861,9 @@ legend(x=0.37, y=11.5, legend = symb, lty =4:1, col = 4:1)
    set_caption('(#tab:logistic) Comparison of logistic #regession models for static areal data') -->
 
 # Discussion 
+The data sets included in this package and discussed in this vignette can be used in teaching and learning of introductory probability, statistics, `R` for data-based sciences with or without reading the book by the same author, [@Sahu2023]. So that a beginner reader can understand the methods, and also being introductory in nature, this package has used very basic `R` commands and scripts throughout. But the package  has illustrated the use of the advanced graphics package  `r  BiocStyle::CRANpkg("ggplot2")` and function writing through the `butterfly` function.  However, `r  BiocStyle::CRANpkg("ipsRdbs")`  does not intentionally teach R programming and does not expect the users to be proficient in adopting those techniques in their own data analysis and processing.  It has been purposefully designed this way to interest the reader to further learn and use more advanced graphics and data manipulation and analysis capabilities of R.           
 
-More work is needed here. 
-
-<!---A fuller version of this document with additional graphical illustrations 
+<!-- A fuller version of this document with additional graphical illustrations 
 <a href="https://www.sujitsahu.com/ipsRdbs/vignette.html" > is also available.  </a> 
 -->
 

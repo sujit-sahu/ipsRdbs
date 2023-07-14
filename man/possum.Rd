@@ -115,8 +115,8 @@ head(possum)
  plot(possum.lm3$fit, possum.lm3$res,xlab="Fitted values",ylab="Residuals", 
  main="Anscombe plot")
  abline(h=0)
- qqnorm(possum.lm3$res,main="Normal probability plot")
- qqline(possum.lm3$res)
+ qqnorm(possum.lm3$res,main="Normal probability plot", col=2)
+ qqline(possum.lm3$res, col="blue")
  
 }
 \references{

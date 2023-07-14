@@ -58,8 +58,8 @@
 #' plot(bfat.lm$fit, bfat.lm$res, xlab="Fitted values", ylab = "Residuals")
 #' abline(h=0)
 #' ### Should be a random scatter
-#' qqnorm(bfat.lm$res)
-#' qqline(bfat.lm$res)
+#' qqnorm(bfat.lm$res, col=2)
+#' qqline(bfat.lm$res, col="blue")
 #' 
 #' # All Points should be on the straight line 
 #' summary(bfat.lm)

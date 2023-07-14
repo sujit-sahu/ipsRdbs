@@ -35,8 +35,8 @@ puff.sqlm <- lm(sqrtfreq~ Grass_Cover + Mean_Soil_Depth + Slope_Angle
 +Distance_from_Edge, data=puffin) 
 old.par <- par(no.readonly = TRUE)
 par(mfrow=c(2,1))
-qqnorm(puff.sqlm$res,main="Normal probability plot")
-qqline(puff.sqlm$res)
+qqnorm(puff.sqlm$res,main="Normal probability plot", col=2)
+qqline(puff.sqlm$res, col="blue")
 plot(puff.sqlm$fit, puff.sqlm$res,xlab="Fitted values",ylab="Residuals", 
 main="Anscombe plot")
 abline(h=0)

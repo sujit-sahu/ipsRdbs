@@ -32,8 +32,8 @@ Riece yield data
  # Should be a random scatter
  # Needs a quadratic term
  
- qqnorm(rice.lm$res)
- qqline(rice.lm$res)
+ qqnorm(rice.lm$res, col=2)
+ qqline(rice.lm$res, col="blue")
  rice.lm2 <- lm(Yield ~ daymin31 + I(daymin31^2) , data=rice)
  old.par <- par(no.readonly = TRUE)
  par(mfrow=c(1, 2))
@@ -41,8 +41,8 @@ Riece yield data
  abline(h=0)
  # Should be a random scatter 
  # Much better plot!
- qqnorm(rice.lm2$res)
- qqline(rice.lm2$res)
+ qqnorm(rice.lm2$res, col=2)
+ qqline(rice.lm2$res, col="blue")
  summary(rice.lm2)
  par(old.par) # par(mfrow=c(1,1))
  plot(rice$Days,  rice$Yield, xlab="Days", ylab="Yield")

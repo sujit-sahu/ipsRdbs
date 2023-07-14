@@ -29,15 +29,15 @@ Testing of cheese data set
  plot(cheese.lm$fit, cheese.lm$res, xlab="Fitted values", ylab = "Residuals")
  abline(h=0)
  # Should be a random scatter
- qqnorm(cheese.lm$res)
- qqline(cheese.lm$res)
+ qqnorm(cheese.lm$res, col=2)
+ qqline(cheese.lm$res, col="blue")
  summary(cheese.lm)
  cheese.lm2 <- lm(Taste ~ LacticAcid + logH2S, data=cheese)
  # Check the diagnostics 
  plot(cheese.lm2$fit, cheese.lm2$res, xlab="Fitted values", ylab = "Residuals")
  abline(h=0)
- qqnorm(cheese.lm2$res)
- qqline(cheese.lm2$res)
+ qqnorm(cheese.lm2$res, col=2)
+ qqline(cheese.lm2$res, col="blue")
  summary(cheese.lm2)
  # How can we predict? 
  newcheese <- data.frame(AceticAcid = 300, LacticAcid = 1.5, logH2S=4)
