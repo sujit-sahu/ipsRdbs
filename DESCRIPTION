@@ -1,8 +1,8 @@
 Package: ipsRdbs
 Type: Package
 Title: Introduction to Probability, Statistics and R for Data-Based Sciences
-Version: 0.3.1
-Date: 2023-07-11
+Version: 0.5.4
+Date: 2023-12-20
 Description: Contains data sets, programmes and illustrations 
     discussed in the book, "Introduction to Probability, Statistics and R:
     Foundations for Data-Based Sciences."  Sahu (2023, isbn:9783031378645)
@@ -24,8 +24,8 @@ Imports:
 Depends:
     R (>= 4.1.0)
 Suggests:
-    GGally, 
     xtable,
+    magick, 
     MASS,
     knitr, 
     rmarkdown,
@@ -34,7 +34,6 @@ Suggests:
     huxtable,
     RColorBrewer,
     markdown,
-    bookdown,
     BiocStyle
 VignetteBuilder: knitr
 LinkingTo:

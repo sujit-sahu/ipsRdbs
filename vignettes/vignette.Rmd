@@ -853,13 +853,6 @@ legend(x=0.37, y=11.5, legend = symb, lty =4:1, col = 4:1)
 
 
 
-<!--
- table4.1 %>%
- as_hux(add_colnames = FALSE) %>%   set_number_format(2)     %>% map_text_color(by_cols("darkred", "blue", "darkgreen", "purple")) %>% add_colnames("Model") %>% set_header_rows(1, TRUE) %>%  add_rownames() %>%
-   set_all_borders(1)  %>%set_bold(1, everywhere) %>% 
-   style_headers(bold = TRUE, text_color = "red") %>% 
-   set_caption('(#tab:logistic) Comparison of logistic #regession models for static areal data') -->
-
 # Discussion 
 The data sets included in this package and discussed in this vignette can be used in teaching and learning of introductory probability, statistics, `R` for data-based sciences with or without reading the book by the same author, [@Sahu2023]. So that a beginner reader can understand the methods, and also being introductory in nature, this package has used very basic `R` commands and scripts throughout. But the package  has illustrated the use of the advanced graphics package  `r  BiocStyle::CRANpkg("ggplot2")` and function writing through the `butterfly` function.  However, `r  BiocStyle::CRANpkg("ipsRdbs")`  does not intentionally teach R programming and does not expect the users to be proficient in adopting those techniques in their own data analysis and processing.  It has been purposefully designed this way to interest the reader to further learn and use more advanced graphics and data manipulation and analysis capabilities of R.           
 

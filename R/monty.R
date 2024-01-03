@@ -5,9 +5,9 @@
 #' @source Corey Chivers (2012) \insertCite{Monty.Corey2012;textual}{ipsRdbs}
 #' @param strat Strategy to use; possibilities are:  
 #' \itemize{  
-#' \item{"stay" }{Do not change the initial door chosen}  
-#' \item{"swap" }{Swap the door chosen initially.}  
-#' \item{"random" }{Randomly decide to stay or swap.}
+#' \item "stay": Do not change the initial door chosen  
+#' \item "swap": Swap the door chosen initially.  
+#' \item "random": Randomly decide to stay or swap.
 #' }
 #' @param N How many games to play, defaults to 1000. 
 #' @param print_games Logical; whether to print the results of each game. 
