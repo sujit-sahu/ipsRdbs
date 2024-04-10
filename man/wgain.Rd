@@ -22,6 +22,13 @@ weeks in college
 }
 \examples{
  summary(wgain)
+ plot(wgain$initial, wgain$final)
+ abline(0, 1, col="red")
+ plot(wgain$initial, wgain$final, xlab="Wt in Week 1", 
+ ylab="Wt in Week 12", pch="*", las=1)
+ abline(0, 1, col="red")
+ title("A scatter plot of the weights in Week 12 against 
+ the  weights in Week 1")
  # 95\% Confidence interval for mean weight gain 
  x <- wgain$final - wgain$initial
  mean(x) + c(-1, 1) * qt(0.975, df=67) * sqrt(var(x)/68)

@@ -24,7 +24,6 @@ Testing of cheese data set
 data(cheese)
 summary(cheese)
 pairs(cheese)
-GGally::ggpairs(cheese)
 cheese.lm <- lm(Taste ~ AceticAcid +  LacticAcid + logH2S, data=cheese, subset=2:30)
 # Check the diagnostics 
 plot(cheese.lm$fit, cheese.lm$res, xlab="Fitted values", ylab = "Residuals")

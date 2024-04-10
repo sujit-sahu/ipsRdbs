@@ -15,8 +15,8 @@ monty(strat = "stay", N = 1000, print_games = TRUE)
 \arguments{
 \item{strat}{Strategy to use; possibilities are:
 \itemize{  
-\item "stay": Do not change the initial door chosen  
-\item "swap": Swap the door chosen initially.  
+\item "stay": Do not change the initial door chosen.  
+\item "swap": Swap the door chosen initially.
 \item "random": Randomly decide to stay or swap.
 }}
 

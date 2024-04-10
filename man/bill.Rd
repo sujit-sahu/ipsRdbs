@@ -26,6 +26,32 @@ Fortune magazine
 \examples{
 head(bill)
 summary(bill)
+table(bill$region)
+levels(bill$region)  
+levels(bill$region) <- c("Asia", "Europe", "Mid-East", "Other", "USA")
+bill.wealth.ge5 <- bill[bill$wealth>5, ]
+bill.wealth.ge5 
+bill.region.A <-  bill[ bill$region == "A", ]
+bill.region.A
+a <-  seq(1, 10, by =2) 
+oddrows <- bill[a, ]
+barplot(table(bill$region), col=2:6)
+hist(bill$wealth) # produces a dull looking plot
+hist(bill$wealth, nclass=20)  # produces a more detailed plot.
+hist(bill$wealth, nclass=20, xlab="Wealth", 
+main="Histogram of wealth of billionaires")  
+# produces a more informative plot.
+plot(bill$age, bill$wealth)  # A very dull plot.
+plot(bill$age, bill$wealth, xlab="Age", ylab="Wealth", pch="*")  # better
+plot(bill$age, bill$wealth, xlab="Age", ylab="Wealth", type="n")
+# Lays the plot area but does not plot.
+text(bill$age, bill$wealth, labels=bill$region, cex=0.7, col=2:6)
+# Adds the points to the empty plot.
+# Provides a better looking plot with more information.
+boxplot(data=bill, wealth ~ region, col=2:6)
+tapply(X=bill$wealth, INDEX=bill$region, FUN=mean)
+tapply(X=bill$wealth, INDEX=bill$region, FUN=sd)
+round(tapply(X=bill$wealth, INDEX=bill$region, FUN=mean), 2)
 library(ggplot2)
 gg <- ggplot2::ggplot(data=bill, aes(x=age, y=wealth)) +
 geom_point(aes(col=region, size=wealth)) + 
