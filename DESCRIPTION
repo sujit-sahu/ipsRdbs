@@ -1,17 +1,17 @@
 Package: ipsRdbs
 Type: Package
 Title: Introduction to Probability, Statistics and R for Data-Based Sciences
-Version: 0.5.6
+Version: 1.0.0
 Date: 2024-04-10
 Description: Contains data sets, programmes and illustrations 
     discussed in the book, "Introduction to Probability, Statistics and R:
     Foundations for Data-Based Sciences."  Sahu (2024, isbn:9783031378645)
     describes the methods in detail.
+License: GPL-3
 Authors@R: c(person(given="Sujit K.", family="Sahu", email="S.K.Sahu@soton.ac.uk", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0003-2315-3598")))
 Maintainer: Sujit K. Sahu <S.K.Sahu@soton.ac.uk>
 URL: https://www.sujitsahu.com
-License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
